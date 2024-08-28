@@ -17,7 +17,9 @@ class _HomeState extends State<Home> {
   bool showHostContent = false;
   bool isParticipantSelected = false;
   bool isHostSelected = false;
-  List<String> participantPages = ["Participant Page 1", "Participant Page 2", "Participant Page 3"];
+  bool showMeetingDetails = false;
+
+  List<String> participantPages = ["Meeting Attend"];
   List<String> hostPages = ["Host Page 1", "Host Page 2"];
 
   void toggleParticipant() {
@@ -46,13 +48,19 @@ class _HomeState extends State<Home> {
     });
   }
 
+  void toggleMeetingDetails() {
+    setState(() {
+      showMeetingDetails = !showMeetingDetails;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 4, // This will add a default shadow to the AppBar
+        elevation: 4,
         backgroundColor: Colors.white,
-        shadowColor: Colors.black.withOpacity(0.3), // Custom shadow color
+        shadowColor: Colors.black.withOpacity(0.3),
         title: Text(
           'Cozy meet',
           style: GoogleFonts.poppins(
@@ -61,51 +69,83 @@ class _HomeState extends State<Home> {
             fontWeight: FontWeight.normal,
           ),
         ),
-       
         bottom: PreferredSize(
-          preferredSize: Size.fromHeight(1.0), // Set the height of the shadow
+          preferredSize: Size.fromHeight(1.0),
           child: Container(
-            color: Colors.black.withOpacity(0.2), // Color of the shadow
-            height: 1.0, // Height of the shadow
+            color: Colors.black.withOpacity(0.2),
+            height: 1.0,
           ),
         ),
       ),
-      
-     
-      drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.purple.shade800,
+      drawer: SizedBox(
+        width: MediaQuery.of(context).size.width * 0.65,
+        child: Drawer(
+          child: Column(
+            children: [
+              UserAccountsDrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.purple.shade800,
+                ),
+                accountName: Text(
+                  "John Doe",
+                  style: GoogleFonts.poppins(fontSize: 18, color: Colors.white),
+                ),
+                accountEmail: Text(
+                  "johndoe@example.com",
+                  style:
+                      GoogleFonts.poppins(fontSize: 14, color: Colors.white70),
+                ),
+                currentAccountPicture: CircleAvatar(
+                  backgroundColor: Colors.white,
+                  child: FaIcon(
+                    FontAwesomeIcons.user,
+                    color: Colors.purple.shade800,
+                    size: 40,
+                  ),
+                ),
               ),
-              child: Text(
-                'Menu',
-                style: GoogleFonts.roboto(fontSize: 24, color: Colors.white),
+              ListTile(
+                leading: FaIcon(FontAwesomeIcons.cog, color: Colors.purple.shade800, size: 20),
+                title: Text('Settings'),
+                onTap: () {
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => Settings()),
+                  );
+                },
               ),
-            ),
-            ListTile(
-              leading: Icon(Icons.home, color: Colors.purple.shade800),
-              title: Text('Home', style: GoogleFonts.roboto(color: Colors.purple.shade800)),
-              onTap: () {
-                Navigator.pop(context); // Close the drawer
-                // Navigate to Home page
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.settings, color: Colors.purple.shade800),
-              title: Text('Settings', style: GoogleFonts.roboto(color: Colors.purple.shade800)),
-              onTap: () {
-                 Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const Settings()),
-          ); // Close the drawer
-                // Navigate to Settings page
-              },
-            ),
-            // Add more drawer items here
-          ],
+              ListTile(
+                leading: FaIcon(FontAwesomeIcons.user, color: Colors.purple.shade800),
+                title: Text('Profile'),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: FaIcon(FontAwesomeIcons.save, color: Colors.purple.shade800, size: 20),
+                title: Text('Saved Agenda'),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: FaIcon(FontAwesomeIcons.chartLine, size: 20, color: Colors.purple.shade800),
+                title: Text('Statistics'),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: FaIcon(FontAwesomeIcons.circleExclamation, size: 20, color: Colors.purple.shade800),
+                title: Text('About'),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: FaIcon(FontAwesomeIcons.circleQuestion, size: 20, color: Colors.purple.shade800),
+                title: Text('Help'),
+                onTap: () {},
+              ),
+              ListTile(
+                leading: FaIcon(FontAwesomeIcons.signOutAlt, size: 20, color: Colors.purple.shade800),
+                title: Text('Logout'),
+                onTap: () {},
+              ),
+            ],
+          ),
         ),
       ),
       body: Padding(
@@ -115,29 +155,29 @@ class _HomeState extends State<Home> {
           children: [
             SizedBox(height: 10),
             Container(
-  decoration: BoxDecoration(
-    color: Colors.white,
-    borderRadius: BorderRadius.circular(30),
-    boxShadow: [
-      BoxShadow(
-        color: Colors.grey.withOpacity(0.5),
-        spreadRadius: 2,
-        blurRadius: 5,
-        offset: Offset(0, 3), // Changes the position of the shadow
-      ),
-    ],
-  ),
-  child: TextField(
-    decoration: InputDecoration(
-      hintText: 'Search...',
-      hintStyle: TextStyle(color: Colors.grey.shade400),
-      prefixIcon: Icon(Icons.search, color: Colors.purple.shade800),
-      border: InputBorder.none, // Removes the border
-      contentPadding: EdgeInsets.all(15),
-    ),
-    style: TextStyle(color: Colors.purple.shade800),
-  ),
-),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30),
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.grey.withOpacity(0.5),
+                    spreadRadius: 2,
+                    blurRadius: 5,
+                    offset: Offset(0, 3),
+                  ),
+                ],
+              ),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: 'Search...',
+                  hintStyle: TextStyle(color: Colors.grey.shade400),
+                  prefixIcon: Icon(Icons.search, color: Colors.purple.shade800),
+                  border: InputBorder.none,
+                  contentPadding: EdgeInsets.all(15),
+                ),
+                style: TextStyle(color: Colors.purple.shade800),
+              ),
+            ),
             SizedBox(height: 15),
             Row(
               children: [
@@ -156,7 +196,7 @@ class _HomeState extends State<Home> {
                         if (isParticipantSelected)
                           Container(
                             margin: EdgeInsets.only(top: 5),
-                            height: 5, // Line thickness
+                            height: 5,
                             color: Colors.purple.shade800,
                           ),
                       ],
@@ -178,7 +218,7 @@ class _HomeState extends State<Home> {
                         if (isHostSelected)
                           Container(
                             margin: EdgeInsets.only(top: 5),
-                            height: 5, // Line thickness
+                            height: 5,
                             color: Colors.purple.shade800,
                           ),
                       ],
@@ -188,12 +228,11 @@ class _HomeState extends State<Home> {
               ],
             ),
             SizedBox(height: 20),
-            if (showParticipantContent) 
+            if (showParticipantContent)
               Container(
                 width: double.infinity,
                 padding: EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                 
                   borderRadius: BorderRadius.circular(14),
                 ),
                 child: Column(
@@ -202,13 +241,10 @@ class _HomeState extends State<Home> {
                       margin: EdgeInsets.only(bottom: 8),
                       width: double.infinity,
                       child: ElevatedButton(
-                        onPressed: () {
-                          // Handle page click here
-                        },
-                        child: Text(page, style: GoogleFonts.roboto(color: const Color.fromARGB(255, 0, 0, 0))),
+                        onPressed: toggleMeetingDetails,
+                        child: Text(page, style: GoogleFonts.roboto(color: Colors.black)),
                         style: ElevatedButton.styleFrom(
-                          
-                          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                          backgroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(14),
                           ),
@@ -218,12 +254,57 @@ class _HomeState extends State<Home> {
                   }).toList(),
                 ),
               ),
-            if (showHostContent) 
+            if (showMeetingDetails)
               Container(
                 width: double.infinity,
                 padding: EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                 
+                  color: Colors.purple.shade50,
+                  borderRadius: BorderRadius.circular(14),
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Meeting Details',
+                      style: GoogleFonts.roboto(
+                        fontSize: 18,
+                        color: Colors.purple.shade800,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      'Date: 24th Aug 2024',
+                      style: GoogleFonts.roboto(
+                        fontSize: 16,
+                        color: Colors.black,
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      'Time: 10:00 AM - 11:00 AM',
+                      style: GoogleFonts.roboto(
+                        fontSize: 16,
+                        color: Colors.black,
+                      ),
+                    ),
+                    SizedBox(height: 5),
+                    Text(
+                      'Location: Virtual Meeting Room',
+                      style: GoogleFonts.roboto(
+                        fontSize: 16,
+                        color: Colors.black,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            if (showHostContent)
+              Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(16),
+                decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(14),
                 ),
                 child: Column(
@@ -235,9 +316,9 @@ class _HomeState extends State<Home> {
                         onPressed: () {
                           // Handle page click here
                         },
-                        child: Text(page, style: GoogleFonts.roboto(color: const Color.fromARGB(255, 0, 0, 0))),
+                        child: Text(page, style: GoogleFonts.roboto(color: Colors.black)),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+                          backgroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(14),
                           ),
@@ -252,7 +333,6 @@ class _HomeState extends State<Home> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Handle the video action here
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => const toCreate()),

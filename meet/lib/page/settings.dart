@@ -6,29 +6,31 @@ class Settings extends StatefulWidget {
   const Settings({super.key});
 
   @override
-  State<Settings> createState() => _CreateState();
+  State<Settings> createState() => _SettingsState();
 }
 
-class _CreateState extends State<Settings> {
-  bool isToggled = false; // Track the state of the toggle button
+class _SettingsState extends State<Settings> {
+  bool isToggled = false;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        elevation: 4, // This will add a default shadow to the AppBar
+        elevation: 4,
         backgroundColor: Colors.white,
         shadowColor: Colors.black.withOpacity(0.3),
-        leading: IconButton(
+         leading: IconButton(
           icon: FaIcon(
-            FontAwesomeIcons.arrowLeft,
+            FontAwesomeIcons.angleLeft,
             color: Colors.purple.shade800,
           ),
           onPressed: () {
-            Navigator.pop(context); // Go back to the previous screen
+            Navigator.pop(context);
           },
         ),
+         
       ),
+      
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
@@ -85,21 +87,20 @@ class _CreateState extends State<Settings> {
                     fontWeight: FontWeight.normal,
                   ),
                 ),
-                Spacer(), // Pushes the toggle button to the far right
+                Spacer(),
                 IconButton(
                   onPressed: () {
                     setState(() {
-                      isToggled = !isToggled; // Toggle the state
+                      isToggled = !isToggled;
                     });
                   },
                   icon: FaIcon(
-                    isToggled ? FontAwesomeIcons.toggleOn : FontAwesomeIcons.toggleOff, // Change icon based on state
-                    color: isToggled ? const Color.fromARGB(255, 0, 0, 0) : const Color.fromARGB(255, 0, 0, 0), // Optionally change color based on state
+                    isToggled ? FontAwesomeIcons.toggleOn : FontAwesomeIcons.toggleOff,
+                    color: Colors.black,
                   ),
                 ),
               ],
             ),
-            // Add more content below this line
           ],
         ),
       ),

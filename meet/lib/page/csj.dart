@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:meet/page/create.dart';
+import 'package:meet/page/joinmeeting.dart';
+import 'package:meet/page/schedule.dart';
 
 class toCreate extends StatefulWidget {
   const toCreate({super.key});
@@ -121,7 +123,7 @@ class _toCreateState extends State<toCreate> {
                 InkWell(
                   onTap: () {
                     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => toCreate())); // Action for "Schedule a Meeting"
+        context, MaterialPageRoute(builder: (context) => Schedule())); // Action for "Schedule a Meeting"
                   },
                   child: Container(
                     width: double.infinity,
@@ -143,6 +145,8 @@ class _toCreateState extends State<toCreate> {
                 InkWell(
                   onTap: () {
                     // Action for "Joining a Meeting"
+                     Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => Joinmeet()));
                   },
                   child: Container(
                     width: double.infinity,
