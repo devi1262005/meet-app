@@ -15,18 +15,15 @@ class Create extends StatefulWidget {
 class _CreateState extends State<Create> {
   String? selectedCategory;
   final TextEditingController _meetingNameController = TextEditingController();
-<<<<<<< HEAD
   final TextEditingController _participantCountController =
       TextEditingController();
   final TextEditingController _agendaGeneratorController =
       TextEditingController();
   final TextEditingController _agendaDetailsController =
       TextEditingController();
-=======
   final TextEditingController _participantCountController = TextEditingController();
   final TextEditingController _agendaGeneratorController = TextEditingController();
   final TextEditingController _agendaDetailsController = TextEditingController();
->>>>>>> 87d6d667abd9c0d97bd9813d7cd7bfc56a7ad382
   Map<String, dynamic>? _jsonResponse; // To store the parsed JSON response
 
   @override
@@ -55,12 +52,9 @@ class _CreateState extends State<Create> {
     };
 
     final response = await http.post(
-<<<<<<< HEAD
       Uri.parse(
           'http://10.0.2.2:5001/generate_agenda'), // Replace with your API URL
-=======
       Uri.parse('http://10.0.2.2:5001/generate_agenda'), // Replace with your API URL
->>>>>>> 87d6d667abd9c0d97bd9813d7cd7bfc56a7ad382
       headers: {
         'Content-Type': 'application/json',
       },
@@ -76,19 +70,16 @@ class _CreateState extends State<Create> {
         String agendaText = jsonResponse['agenda'] ?? '';
 
         // Clean up the agenda text
-<<<<<<< HEAD
         List<String> agendaPoints =
             agendaText.split('\n').where((line) => line.isNotEmpty).toList();
 
         // Format the points for display
         _agendaDetailsController.text =
             agendaPoints.join('\n• '); // Add a bullet point before each line
-=======
         List<String> agendaPoints = agendaText.split('\n').where((line) => line.isNotEmpty).toList();
 
         // Format the points for display
         _agendaDetailsController.text = agendaPoints.join('\n• '); // Add a bullet point before each line
->>>>>>> 87d6d667abd9c0d97bd9813d7cd7bfc56a7ad382
       });
     } else {
       print('Failed to generate agenda. Status code: ${response.statusCode}');
@@ -363,21 +354,15 @@ class _CreateState extends State<Create> {
                   ),
                   filled: true,
                   fillColor: Colors.white,
-<<<<<<< HEAD
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-=======
                   contentPadding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
->>>>>>> 87d6d667abd9c0d97bd9813d7cd7bfc56a7ad382
                 ),
                 maxLines: 3,
               ),
             ),
-<<<<<<< HEAD
             SizedBox(height: 5), // Space between the TextField and the button
-=======
             SizedBox(height: 5),  // Space between the TextField and the button
->>>>>>> 87d6d667abd9c0d97bd9813d7cd7bfc56a7ad382
             Align(
               alignment: Alignment.centerRight,
               child: ElevatedButton(
@@ -436,12 +421,9 @@ class _CreateState extends State<Create> {
                   ),
                   filled: true,
                   fillColor: Colors.white,
-<<<<<<< HEAD
                   contentPadding:
                       EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-=======
                   contentPadding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
->>>>>>> 87d6d667abd9c0d97bd9813d7cd7bfc56a7ad382
                 ),
                 maxLines: 5,
                 readOnly: true, // Make this field read-only
@@ -450,13 +432,10 @@ class _CreateState extends State<Create> {
             SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-<<<<<<< HEAD
               children: [],
-=======
               children: [
 
               ],
->>>>>>> 87d6d667abd9c0d97bd9813d7cd7bfc56a7ad382
             ),
           ],
         ),
