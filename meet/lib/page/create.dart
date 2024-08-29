@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'dart:convert'; // For encoding the JSON request body
 
 class Create extends StatefulWidget {
   const Create({super.key});
@@ -18,7 +18,7 @@ class _CreateState extends State<Create> {
   final TextEditingController _participantCountController = TextEditingController();
   final TextEditingController _agendaGeneratorController = TextEditingController();
   final TextEditingController _agendaDetailsController = TextEditingController();
-  Map<String, dynamic>? _jsonResponse;
+  Map<String, dynamic>? _jsonResponse; // To store the parsed JSON response
 
   @override
   void initState() {
@@ -32,15 +32,21 @@ class _CreateState extends State<Create> {
   }
 
   Future<void> _generateAgenda() async {
+    String meetingName = _meetingNameController.text;
+    String participantCount = _participantCountController.text;
     String agendaDetails = _agendaGeneratorController.text;
+    String selectedCat = selectedCategory ?? '';
 
-    // Create the request body with the specified format
     Map<String, dynamic> requestBody = {
-      "agenda": "generate agenda for $agendaDetails",
+      "meeting_name": meetingName,
+      "participant_count": participantCount,
+      "agenda": "Generate agenda for $agendaDetails",
+      "agenda_details": agendaDetails,
+      "category": selectedCat,
     };
 
     final response = await http.post(
-      Uri.parse('http://10.0.2.2:5001/generate_agenda'),
+      Uri.parse('http://10.0.2.2:5001/generate_agenda'), // Replace with your API URL
       headers: {
         'Content-Type': 'application/json',
       },
@@ -55,9 +61,11 @@ class _CreateState extends State<Create> {
         // Extract the agenda text
         String agendaText = jsonResponse['agenda'] ?? '';
 
-        // Clean up the agenda text and format for display
+        // Clean up the agenda text
         List<String> agendaPoints = agendaText.split('\n').where((line) => line.isNotEmpty).toList();
-        _agendaDetailsController.text = agendaPoints.join('\n• ');
+
+        // Format the points for display
+        _agendaDetailsController.text = agendaPoints.join('\n• '); // Add a bullet point before each line
       });
     } else {
       print('Failed to generate agenda. Status code: ${response.statusCode}');
@@ -65,7 +73,10 @@ class _CreateState extends State<Create> {
     }
   }
 
+
   void _editAgenda() {
+    // Handle the editing functionality here
+    // For example, show a dialog with a TextField to update the agenda
     showDialog(
       context: context,
       builder: (context) {
@@ -132,15 +143,8 @@ class _CreateState extends State<Create> {
             height: 1.0,
           ),
         ),
-        leading: IconButton(
-          icon: Icon(FontAwesomeIcons.play, color: Colors.blue),
-          onPressed: _navigateToNextPage,
-        ),
-        title: Text(
-          'Create Meeting',
-          style: GoogleFonts.roboto(color: Colors.black),
-        ),
       ),
+      resizeToAvoidBottomInset: false,
       body: SafeArea(
         child: ListView(
           padding: EdgeInsets.all(16.0),
@@ -148,7 +152,10 @@ class _CreateState extends State<Create> {
             SizedBox(height: 40),
             Text(
               'Meeting Name',
-              style: GoogleFonts.roboto(fontSize: 18, color: Colors.black87),
+              style: GoogleFonts.roboto(
+                fontSize: 18,
+                color: Colors.black87,
+              ),
             ),
             SizedBox(height: 5),
             Container(
@@ -172,7 +179,9 @@ class _CreateState extends State<Create> {
                     child: Icon(Icons.text_format, color: Colors.grey.shade600),
                   ),
                   hintText: 'Enter Meeting Name',
-                  hintStyle: TextStyle(color: Colors.grey.shade400),
+                  hintStyle: TextStyle(
+                    color: Colors.grey.shade400,
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                     borderSide: BorderSide.none,
@@ -187,7 +196,10 @@ class _CreateState extends State<Create> {
             SizedBox(height: 15),
             Text(
               'Participant Count',
-              style: GoogleFonts.roboto(fontSize: 18, color: Colors.black87),
+              style: GoogleFonts.roboto(
+                fontSize: 18,
+                color: Colors.black87,
+              ),
             ),
             SizedBox(height: 5),
             Container(
@@ -215,7 +227,9 @@ class _CreateState extends State<Create> {
                     child: Icon(Icons.people, color: Colors.grey.shade600),
                   ),
                   hintText: 'Participant Count',
-                  hintStyle: TextStyle(color: Colors.grey.shade400),
+                  hintStyle: TextStyle(
+                    color: Colors.grey.shade400,
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                     borderSide: BorderSide.none,
@@ -230,7 +244,10 @@ class _CreateState extends State<Create> {
             SizedBox(height: 15),
             Text(
               'Category',
-              style: GoogleFonts.roboto(fontSize: 18, color: Colors.black87),
+              style: GoogleFonts.roboto(
+                fontSize: 18,
+                color: Colors.black87,
+              ),
             ),
             SizedBox(height: 5),
             Container(
@@ -255,7 +272,9 @@ class _CreateState extends State<Create> {
                 },
                 decoration: InputDecoration(
                   hintText: 'Select Category',
-                  hintStyle: TextStyle(color: Colors.grey.shade400),
+                  hintStyle: TextStyle(
+                    color: Colors.grey.shade400,
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                     borderSide: BorderSide.none,
@@ -279,8 +298,11 @@ class _CreateState extends State<Create> {
             ),
             SizedBox(height: 15),
             Text(
-              'Agenda Generator',
-              style: GoogleFonts.roboto(fontSize: 18, color: Colors.black87),
+              'The meeting is about?',
+              style: GoogleFonts.roboto(
+                fontSize: 18,
+                color: Colors.black87,
+              ),
             ),
             SizedBox(height: 5),
             Container(
@@ -299,29 +321,53 @@ class _CreateState extends State<Create> {
               child: TextField(
                 controller: _agendaGeneratorController,
                 decoration: InputDecoration(
-                  hintText: 'Type agenda details',
-                  hintStyle: TextStyle(color: Colors.grey.shade400),
+                  suffixIcon: Padding(
+                    padding: const EdgeInsets.only(right: 10.0),
+                    child: Icon(Icons.note_add, color: Colors.grey.shade600),
+                  ),
+                  hintText: 'Enter Agenda Details',
+                  hintStyle: TextStyle(
+                    color: Colors.grey.shade400,
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                     borderSide: BorderSide.none,
                   ),
                   filled: true,
                   fillColor: Colors.white,
-                  contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
                 ),
-                maxLines: 2,
+                maxLines: 3,
               ),
             ),
-            SizedBox(height: 15),
-            ElevatedButton(
-              onPressed: _generateAgenda,
-              child: Text('Generate Agenda'),
+            SizedBox(height: 5),  // Space between the TextField and the button
+            Align(
+              alignment: Alignment.centerRight,
+              child: ElevatedButton(
+                onPressed: _generateAgenda,
+                style: ElevatedButton.styleFrom(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                  backgroundColor: Colors.blue, // Adjust button color as needed
+                ),
+                child: Text(
+                  'Generate',
+                  style: TextStyle(fontSize: 14), // Adjust text size as needed
+                ),
+              ),
             ),
-            SizedBox(height: 15),
+
+            SizedBox(height: 2),
             Text(
               'Agenda Details',
-              style: GoogleFonts.roboto(fontSize: 18, color: Colors.black87),
+              style: GoogleFonts.roboto(
+                fontSize: 18,
+                color: Colors.black87,
+              ),
             ),
+
             SizedBox(height: 5),
             Container(
               decoration: BoxDecoration(
@@ -339,47 +385,45 @@ class _CreateState extends State<Create> {
               child: TextField(
                 controller: _agendaDetailsController,
                 decoration: InputDecoration(
-                  hintText: 'Generated agenda will appear here',
-                  hintStyle: TextStyle(color: Colors.grey.shade400),
+                  suffixIcon: Padding(
+                    padding: const EdgeInsets.only(right: 10.0),
+                    child: Icon(Icons.text_fields, color: Colors.grey.shade600),
+                  ),
+                  hintText: 'Generated Agenda Details',
+                  hintStyle: TextStyle(
+                    color: Colors.grey.shade400,
+                  ),
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(20),
                     borderSide: BorderSide.none,
                   ),
                   filled: true,
                   fillColor: Colors.white,
-                  contentPadding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+                  contentPadding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
                 ),
                 maxLines: 5,
-                readOnly: true,
+                readOnly: true, // Make this field read-only
               ),
             ),
-            SizedBox(height: 15),
-            ElevatedButton(
-              onPressed: _editAgenda,
-              child: Text('Edit Agenda'),
-            ),
-            SizedBox(height: 15),
-            CheckboxListTile(
-              title: Text('Hide Agenda In Meeting'),
-              value: false, // Replace with your variable
-              onChanged: (bool? value) {
-                setState(() {
-                  // Update the variable here
-                });
-              },
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+
+              ],
             ),
           ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: _navigateToNextPage,
-        child: Icon(FontAwesomeIcons.arrowRight),
+        child: Icon(Icons.play_arrow),
+        backgroundColor: Colors.blue,
       ),
     );
   }
 }
 
-// Placeholder for the next meeting page
 class NextMeetingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
