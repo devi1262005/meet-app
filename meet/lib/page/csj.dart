@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:meet/page/create.dart';
-import 'package:meet/page/joinmeeting.dart';
 import 'package:meet/page/schedule.dart';
+import 'package:meet/page/joinmeeting.dart';
 
 class toCreate extends StatefulWidget {
   const toCreate({super.key});
@@ -20,7 +20,8 @@ class _toCreateState extends State<toCreate> {
         backgroundColor: Colors.white,
         shadowColor: Colors.black.withOpacity(0.3), // Custom shadow color
         bottom: PreferredSize(
-          preferredSize: const Size.fromHeight(1.0), // Set the height of the shadow
+          preferredSize:
+              const Size.fromHeight(1.0), // Set the height of the shadow
           child: Container(
             color: Colors.black.withOpacity(0.2), // Color of the shadow
             height: 1.0, // Height of the shadow
@@ -100,19 +101,25 @@ class _toCreateState extends State<toCreate> {
                 // Create a Meeting Button
                 InkWell(
                   onTap: () {
-                   Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => Create()));   // Action for "Create a Meeting"
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                Create())); // Action for "Create a Meeting"
                   },
                   child: Container(
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Row(
                       children: [
-                        Icon(Icons.add_circle, color: const Color.fromARGB(255, 0, 0, 0)),
-                        const SizedBox(width: 25), // Adjusted space between icon and text
+                        Icon(Icons.add_circle,
+                            color: const Color.fromARGB(255, 0, 0, 0)),
+                        const SizedBox(
+                            width: 25), // Adjusted space between icon and text
                         Text(
                           'Create a Meeting',
-                          style: GoogleFonts.roboto(fontSize: 18, color: Colors.purple.shade800),
+                          style: GoogleFonts.roboto(
+                              fontSize: 18, color: Colors.purple.shade800),
                         ),
                       ],
                     ),
@@ -123,18 +130,28 @@ class _toCreateState extends State<toCreate> {
                 InkWell(
                   onTap: () {
                     Navigator.pushReplacement(
+<<<<<<< HEAD
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                Schedule())); // Action for "Schedule a Meeting"
+=======
         context, MaterialPageRoute(builder: (context) => Schedule())); // Action for "Schedule a Meeting"
+>>>>>>> e06aa4e9f0c28281ebf4ecdcde9a8b12820fbab6
                   },
                   child: Container(
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Row(
                       children: [
-                        Icon(Icons.schedule, color: const Color.fromARGB(255, 0, 0, 0)),
-                        const SizedBox(width: 25), // Adjusted space between icon and text
+                        Icon(Icons.schedule,
+                            color: const Color.fromARGB(255, 0, 0, 0)),
+                        const SizedBox(
+                            width: 25), // Adjusted space between icon and text
                         Text(
                           'Schedule a Meeting',
-                          style: GoogleFonts.roboto(fontSize: 18, color: Colors.purple.shade800),
+                          style: GoogleFonts.roboto(
+                              fontSize: 18, color: Colors.purple.shade800),
                         ),
                       ],
                     ),
@@ -145,19 +162,27 @@ class _toCreateState extends State<toCreate> {
                 InkWell(
                   onTap: () {
                     // Action for "Joining a Meeting"
+<<<<<<< HEAD
+                    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => Joinmeet()));  
+=======
                      Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => Joinmeet()));
+>>>>>>> e06aa4e9f0c28281ebf4ecdcde9a8b12820fbab6
                   },
                   child: Container(
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(vertical: 16),
                     child: Row(
                       children: [
-                        Icon(Icons.group_add, color: const Color.fromARGB(255, 0, 0, 0)),
-                        const SizedBox(width: 25), // Adjusted space between icon and text
+                        Icon(Icons.group_add,
+                            color: const Color.fromARGB(255, 0, 0, 0)),
+                        const SizedBox(
+                            width: 25), // Adjusted space between icon and text
                         Text(
                           'Join a Meeting',
-                          style: GoogleFonts.roboto(fontSize: 18, color: Colors.purple.shade800),
+                          style: GoogleFonts.roboto(
+                              fontSize: 18, color: Colors.purple.shade800),
                         ),
                       ],
                     ),

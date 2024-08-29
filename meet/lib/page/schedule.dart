@@ -10,10 +10,17 @@ class Schedule extends StatefulWidget {
   const Schedule({super.key});
 
   @override
+<<<<<<< HEAD
+  State<Schedule> createState() => schedState();
+}
+
+class schedState extends State<Schedule> {
+=======
   State<Schedule> createState() => _CreateState();
 }
 
 class _CreateState extends State<Schedule> {
+>>>>>>> e06aa4e9f0c28281ebf4ecdcde9a8b12820fbab6
   String? selectedCategory;
 
   @override
