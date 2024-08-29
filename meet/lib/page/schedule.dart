@@ -10,12 +10,10 @@ class Schedule extends StatefulWidget {
   const Schedule({super.key});
 
   @override
-<<<<<<< HEAD
   State<Schedule> createState() => schedState();
 }
 
 class schedState extends State<Schedule> {
-=======
   State<Schedule> createState() => _CreateState();
 }
 
