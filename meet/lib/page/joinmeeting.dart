@@ -9,20 +9,17 @@ class Joinmeet extends StatefulWidget {
   const Joinmeet({super.key});
 
   @override
-<<<<<<< HEAD
   State<Joinmeet> createState() => joinState();
 }
 
 class joinState extends State<Joinmeet> {
   String? selectedCategory;
    bool isToggled = false;
-=======
   State<Joinmeet> createState() => _CreateState();
 }
 
 class _CreateState extends State<Joinmeet> {
   String? selectedCategory;
->>>>>>> e06aa4e9f0c28281ebf4ecdcde9a8b12820fbab6
 
   @override
   void initState() {
@@ -50,7 +47,6 @@ class _CreateState extends State<Joinmeet> {
             fontWeight: FontWeight.normal,
           ),
         ),
-<<<<<<< HEAD
          leading: IconButton(
           icon: FaIcon(
             FontAwesomeIcons.arrowLeft,
@@ -58,7 +54,6 @@ class _CreateState extends State<Joinmeet> {
           ),
           onPressed: () {
             Navigator.pop(context); // Go back to the previous screen
-=======
         leading: IconButton(
           icon: FaIcon(
             FontAwesomeIcons.angleLeft,
@@ -66,7 +61,6 @@ class _CreateState extends State<Joinmeet> {
           ),
           onPressed: () {
             Navigator.pop(context);
->>>>>>> e06aa4e9f0c28281ebf4ecdcde9a8b12820fbab6
           },
         ),
         bottom: PreferredSize(
