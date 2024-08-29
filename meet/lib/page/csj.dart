@@ -130,14 +130,11 @@ class _toCreateState extends State<toCreate> {
                 InkWell(
                   onTap: () {
                     Navigator.pushReplacement(
-<<<<<<< HEAD
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
                                 Schedule())); // Action for "Schedule a Meeting"
-=======
         context, MaterialPageRoute(builder: (context) => Schedule())); // Action for "Schedule a Meeting"
->>>>>>> e06aa4e9f0c28281ebf4ecdcde9a8b12820fbab6
                   },
                   child: Container(
                     width: double.infinity,
@@ -162,13 +159,10 @@ class _toCreateState extends State<toCreate> {
                 InkWell(
                   onTap: () {
                     // Action for "Joining a Meeting"
-<<<<<<< HEAD
                     Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => Joinmeet()));  
-=======
                      Navigator.pushReplacement(
         context, MaterialPageRoute(builder: (context) => Joinmeet()));
->>>>>>> e06aa4e9f0c28281ebf4ecdcde9a8b12820fbab6
                   },
                   child: Container(
                     width: double.infinity,
