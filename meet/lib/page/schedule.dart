@@ -1,24 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// ignore: depend_on_referenced_packages
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-// ignore: depend_on_referenced_packages
 import 'package:google_fonts/google_fonts.dart';
-
 
 class Schedule extends StatefulWidget {
   const Schedule({super.key});
 
   @override
-  State<Schedule> createState() => schedState();
-}
-
-class schedState extends State<Schedule> {
   State<Schedule> createState() => _CreateState();
 }
 
 class _CreateState extends State<Schedule> {
->>>>>>> e06aa4e9f0c28281ebf4ecdcde9a8b12820fbab6
   String? selectedCategory;
 
   @override
@@ -72,280 +64,23 @@ class _CreateState extends State<Schedule> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const SizedBox(height: 40),
-              Text(
-                'Meeting Name',
-                style: GoogleFonts.roboto(
-                  fontSize: 18,
-                  color: Colors.black87,
-                ),
-              ),
-              const SizedBox(height: 5),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: const Offset(1, 1),
-                    ),
-                  ],
-                ),
-                child: TextField(
-                  decoration: InputDecoration(
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.only(right: 10.0),
-                      child: Icon(Icons.text_format, color: Colors.grey.shade600),
-                    ),
-                    hintText: 'Enter Meeting Name',
-                    hintStyle: TextStyle(
-                      color: Colors.grey.shade400,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide.none,
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0), // Adjust padding
-                  ),
-                  maxLines: 1,
-                ),
-              ),
+              _buildLabel('Meeting Name'),
+              _buildTextField('Enter Meeting Name', Icons.text_format),
               const SizedBox(height: 15),
-              Text(
-                'Date and Day',
-                style: GoogleFonts.roboto(
-                  fontSize: 18,
-                  color: Colors.black87,
-                ),
-              ),
-              const SizedBox(height: 5),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: const Offset(1, 1),
-                    ),
-                  ],
-                ),
-                child: TextField(
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly,
-                  ],
-                  decoration: InputDecoration(
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.only(right: 10.0),
-                      child: Icon(Icons.calendar_month, color: Colors.grey.shade600),
-                    ),
-                    hintText: '',
-                    hintStyle: TextStyle(
-                      color: Colors.grey.shade400,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide.none,
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0), // Adjust padding
-                  ),
-                  maxLines: 1,
-                ),
-              ),
+              _buildLabel('Date and Day'),
+              _buildTextField('Select Date', Icons.calendar_month, isDate: true),
               const SizedBox(height: 15),
-              Text(
-                'Time ',
-                style: GoogleFonts.roboto(
-                  fontSize: 18,
-                  color: Colors.black87,
-                ),
-              ),
-              const SizedBox(height: 5),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: const Offset(1, 1),
-                    ),
-                  ],
-                ),
-                child: TextField(
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly,
-                  ],
-                  decoration: InputDecoration(
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.only(right: 10.0),
-                      child: Icon(Icons.lock_clock, color: Colors.grey.shade600),
-                    ),
-                    
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide.none,
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0), // Adjust padding
-                  ),
-                  maxLines: 1,
-                ),
-              ),
+              _buildLabel('Time'),
+              _buildTextField('Select Time', Icons.lock_clock, isTime: true),
               const SizedBox(height: 15),
-              Text(
-                'Participant Count',
-                style: GoogleFonts.roboto(
-                  fontSize: 18,
-                  color: Colors.black87,
-                ),
-              ),
-              const SizedBox(height: 5),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      spreadRadius:1,
-                      blurRadius: 5,
-                      offset: const Offset(1, 1),
-                    ),
-                  ],
-                ),
-                child: TextField(
-                  keyboardType: TextInputType.number,
-                  inputFormatters: <TextInputFormatter>[
-                    FilteringTextInputFormatter.digitsOnly,
-                  ],
-                  decoration: InputDecoration(
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.only(right: 10.0),
-                      child: Icon(Icons.people, color: Colors.grey.shade600),
-                    ),
-                    hintText: 'Participant Count',
-                    hintStyle: TextStyle(
-                      color: Colors.grey.shade400,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide.none,
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0), // Adjust padding
-                  ),
-                  maxLines: 1,
-                ),
-              ),
+              _buildLabel('Participant Count'),
+              _buildTextField('Enter Participant Count', Icons.people, isNumber: true),
               const SizedBox(height: 15),
-              Text(
-                'Category',
-                style: GoogleFonts.roboto(
-                  fontSize: 18,
-                  color: Colors.black87,
-                ),
-              ),
-              const SizedBox(height: 5),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.2),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: const Offset(1, 1),
-                    ),
-                  ],
-                ),
-                child: DropdownButtonFormField<String>(
-                  value: selectedCategory,
-                  onChanged: (String? newValue) {
-                    setState(() {
-                      selectedCategory = newValue;
-                    });
-                  },
-                  decoration: InputDecoration(
-                    hintText: 'Select Category',
-                    hintStyle: TextStyle(
-                      color: Colors.grey.shade400,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide.none,
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-                  ),
-                  items: <String>[
-                    'Category 1',
-                    'Category 2',
-                    'Category 3',
-                    'Category 4'
-                  ].map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                      value: value,
-                      child: Text(value),
-                    );
-                  }).toList(),
-                ),
-              ),
+              _buildLabel('Category'),
+              _buildDropdownField(),
               const SizedBox(height: 15),
-              Text(
-                'Agenda generator',
-                style: GoogleFonts.roboto(
-                  fontSize: 18,
-                  color: Colors.black87,
-                ),
-              ),
-              const SizedBox(height: 5),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.1),
-                      spreadRadius: 1,
-                      blurRadius: 5,
-                      offset: const Offset(0, 0),
-                    ),
-                  ],
-                ),
-                child: TextField(
-                  decoration: InputDecoration(
-                    hintText: 'Enter your content here',
-                    hintStyle: TextStyle(
-                      color: Colors.grey.shade400,
-                    ),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(20),
-                      borderSide: BorderSide.none,
-                    ),
-                    filled: true,
-                    fillColor: Colors.white,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0), // Adjust padding
-                  ),
-                  maxLines: 1,
-                ),
-              ),
+              _buildLabel('Agenda Generator'),
+              _buildTextField('Enter your content here', null),
               const SizedBox(height: 15),
               Align(
                 alignment: Alignment.centerRight,
@@ -401,11 +136,122 @@ class _CreateState extends State<Schedule> {
             ),
             label: '',
           ),
-          
         ],
       ),
-    
-      
+    );
+  }
+
+  Widget _buildLabel(String text) {
+    return Text(
+      text,
+      style: GoogleFonts.roboto(
+        fontSize: 18,
+        color: Colors.black87,
+      ),
+    );
+  }
+
+  Widget _buildTextField(String hint, IconData? icon, {bool isNumber = false, bool isDate = false, bool isTime = false}) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            spreadRadius: 1,
+            blurRadius: 5,
+            offset: const Offset(1, 1),
+          ),
+        ],
+      ),
+      child: TextField(
+        keyboardType: isNumber ? TextInputType.number : TextInputType.text,
+        inputFormatters: isNumber ? [FilteringTextInputFormatter.digitsOnly] : null,
+        decoration: InputDecoration(
+          suffixIcon: icon != null ? Padding(
+            padding: const EdgeInsets.only(right: 10.0),
+            child: Icon(icon, color: Colors.grey.shade600),
+          ) : null,
+          hintText: hint,
+          hintStyle: TextStyle(
+            color: Colors.grey.shade400,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide.none,
+          ),
+          filled: true,
+          fillColor: Colors.white,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+        ),
+        maxLines: 1,
+        readOnly: isDate || isTime,
+        onTap: () async {
+          if (isDate) {
+            final date = await showDatePicker(
+              context: context,
+              initialDate: DateTime.now(),
+              firstDate: DateTime(2000),
+              lastDate: DateTime(2101),
+            );
+          } else if (isTime) {
+            final time = await showTimePicker(
+              context: context,
+              initialTime: TimeOfDay.now(),
+            );
+          }
+        },
+      ),
+    );
+  }
+
+  Widget _buildDropdownField() {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.2),
+            spreadRadius: 1,
+            blurRadius: 5,
+            offset: const Offset(1, 1),
+          ),
+        ],
+      ),
+      child: DropdownButtonFormField<String>(
+        value: selectedCategory,
+        onChanged: (String? newValue) {
+          setState(() {
+            selectedCategory = newValue;
+          });
+        },
+        decoration: InputDecoration(
+          hintText: 'Select Category',
+          hintStyle: TextStyle(
+            color: Colors.grey.shade400,
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(20),
+            borderSide: BorderSide.none,
+          ),
+          filled: true,
+          fillColor: Colors.white,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+        ),
+        items: <String>[
+          'Category 1',
+          'Category 2',
+          'Category 3',
+          'Category 4'
+        ].map<DropdownMenuItem<String>>((String value) {
+          return DropdownMenuItem<String>(
+            value: value,
+            child: Text(value),
+          );
+        }).toList(),
+      ),
     );
   }
 }

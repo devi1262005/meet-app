@@ -9,17 +9,12 @@ class Joinmeet extends StatefulWidget {
   const Joinmeet({super.key});
 
   @override
-  State<Joinmeet> createState() => joinState();
+  State<Joinmeet> createState() => _JoinmeetState();
 }
 
-class joinState extends State<Joinmeet> {
+class _JoinmeetState extends State<Joinmeet> {
   String? selectedCategory;
-   bool isToggled = false;
-  State<Joinmeet> createState() => _CreateState();
-}
-
-class _CreateState extends State<Joinmeet> {
-  String? selectedCategory;
+  bool isToggled = false;
 
   @override
   void initState() {
@@ -47,13 +42,6 @@ class _CreateState extends State<Joinmeet> {
             fontWeight: FontWeight.normal,
           ),
         ),
-         leading: IconButton(
-          icon: FaIcon(
-            FontAwesomeIcons.arrowLeft,
-            color: Colors.purple.shade800,
-          ),
-          onPressed: () {
-            Navigator.pop(context); // Go back to the previous screen
         leading: IconButton(
           icon: FaIcon(
             FontAwesomeIcons.angleLeft,
@@ -116,7 +104,7 @@ class _CreateState extends State<Joinmeet> {
                     ),
                     filled: true,
                     fillColor: Colors.white,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0), // Adjust padding
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
                   ),
                   maxLines: 1,
                 ),
@@ -163,12 +151,11 @@ class _CreateState extends State<Joinmeet> {
                     ),
                     filled: true,
                     fillColor: Colors.white,
-                    contentPadding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0), // Adjust padding
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
                   ),
                   maxLines: 1,
                 ),
               ),
-              
             ],
           ),
         ),
@@ -176,8 +163,8 @@ class _CreateState extends State<Joinmeet> {
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           // Add your onPressed functionality here
-            Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => const Joinmeet()));
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => const Joinmeet()));
         },
         backgroundColor: Colors.purple.shade800,
         shape: const CircleBorder(),

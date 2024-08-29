@@ -105,7 +105,7 @@ class _HomeState extends State<Home> {
                 ),
               ),
               ListTile(
-                leading: FaIcon(FontAwesomeIcons.cog, color: Colors.purple.shade800, size: 20),
+                leading: FaIcon(FontAwesomeIcons.gear, color: Colors.purple.shade800, size: 20),
                 title: Text('Settings'),
                 onTap: () {
                   Navigator.pushReplacement(
@@ -120,7 +120,7 @@ class _HomeState extends State<Home> {
                 onTap: () {},
               ),
               ListTile(
-                leading: FaIcon(FontAwesomeIcons.save, color: Colors.purple.shade800, size: 20),
+                leading: FaIcon(FontAwesomeIcons.floppyDisk, color: Colors.purple.shade800, size: 20),
                 title: Text('Saved Agenda'),
                 onTap: () {},
               ),
@@ -140,7 +140,7 @@ class _HomeState extends State<Home> {
                 onTap: () {},
               ),
               ListTile(
-                leading: FaIcon(FontAwesomeIcons.signOutAlt, size: 20, color: Colors.purple.shade800),
+                leading: FaIcon(FontAwesomeIcons.rightFromBracket, size: 20, color: Colors.purple.shade800),
                 title: Text('Logout'),
                 onTap: () {},
               ),
@@ -335,7 +335,7 @@ class _HomeState extends State<Home> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const toCreate()),
+            MaterialPageRoute(builder: (context) => const Create()),
           );
         },
         child: FaIcon(FontAwesomeIcons.video, size: 30, color: Colors.white),

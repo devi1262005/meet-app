@@ -15,16 +15,10 @@ class Create extends StatefulWidget {
 class _CreateState extends State<Create> {
   String? selectedCategory;
   final TextEditingController _meetingNameController = TextEditingController();
-  final TextEditingController _participantCountController =
-      TextEditingController();
-  final TextEditingController _agendaGeneratorController =
-      TextEditingController();
-  final TextEditingController _agendaDetailsController =
-      TextEditingController();
   final TextEditingController _participantCountController = TextEditingController();
   final TextEditingController _agendaGeneratorController = TextEditingController();
   final TextEditingController _agendaDetailsController = TextEditingController();
-  Map<String, dynamic>? _jsonResponse; // To store the parsed JSON response
+  Map<String, dynamic>? _jsonResponse;
 
   @override
   void initState() {
@@ -52,8 +46,6 @@ class _CreateState extends State<Create> {
     };
 
     final response = await http.post(
-      Uri.parse(
-          'http://10.0.2.2:5001/generate_agenda'), // Replace with your API URL
       Uri.parse('http://10.0.2.2:5001/generate_agenda'), // Replace with your API URL
       headers: {
         'Content-Type': 'application/json',
@@ -63,23 +55,10 @@ class _CreateState extends State<Create> {
 
     if (response.statusCode == 200) {
       setState(() {
-        // Parse the JSON response
         Map<String, dynamic> jsonResponse = jsonDecode(response.body);
-
-        // Extract the agenda text
         String agendaText = jsonResponse['agenda'] ?? '';
-
-        // Clean up the agenda text
-        List<String> agendaPoints =
-            agendaText.split('\n').where((line) => line.isNotEmpty).toList();
-
-        // Format the points for display
-        _agendaDetailsController.text =
-            agendaPoints.join('\n• '); // Add a bullet point before each line
         List<String> agendaPoints = agendaText.split('\n').where((line) => line.isNotEmpty).toList();
-
-        // Format the points for display
-        _agendaDetailsController.text = agendaPoints.join('\n• '); // Add a bullet point before each line
+        _agendaDetailsController.text = agendaPoints.join('\n• ');
       });
     } else {
       print('Failed to generate agenda. Status code: ${response.statusCode}');
@@ -87,10 +66,7 @@ class _CreateState extends State<Create> {
     }
   }
 
-
   void _editAgenda() {
-    // Handle the editing functionality here
-    // For example, show a dialog with a TextField to update the agenda
     showDialog(
       context: context,
       builder: (context) {
@@ -136,12 +112,9 @@ class _CreateState extends State<Create> {
   }
 
   void _navigateToNextPage() {
-    // Navigate to the next meeting page
     Navigator.push(
       context,
-      MaterialPageRoute(
-          builder: (context) =>
-              NextMeetingPage()), // Replace with your next page
+      MaterialPageRoute(builder: (context) => NextMeetingPage()),
     );
   }
 
@@ -159,6 +132,19 @@ class _CreateState extends State<Create> {
             height: 1.0,
           ),
         ),
+        title: Text(
+          'Create Meeting',
+          style: GoogleFonts.roboto(
+            fontSize: 20,
+            color: Colors.black87,
+          ),
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.play_arrow, color: Colors.black87),
+            onPressed: _navigateToNextPage,
+          ),
+        ],
       ),
       resizeToAvoidBottomInset: false,
       body: SafeArea(
@@ -166,203 +152,32 @@ class _CreateState extends State<Create> {
           padding: EdgeInsets.all(16.0),
           children: [
             SizedBox(height: 40),
-            Text(
-              'Meeting Name',
-              style: GoogleFonts.roboto(
-                fontSize: 18,
-                color: Colors.black87,
-              ),
-            ),
-            SizedBox(height: 5),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    spreadRadius: 1,
-                    blurRadius: 5,
-                    offset: Offset(1, 1),
-                  ),
-                ],
-              ),
-              child: TextField(
-                controller: _meetingNameController,
-                decoration: InputDecoration(
-                  suffixIcon: Padding(
-                    padding: const EdgeInsets.only(right: 10.0),
-                    child: Icon(Icons.text_format, color: Colors.grey.shade600),
-                  ),
-                  hintText: 'Enter Meeting Name',
-                  hintStyle: TextStyle(
-                    color: Colors.grey.shade400,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide.none,
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-                ),
-                maxLines: 1,
-              ),
+            _buildTextField(
+              controller: _meetingNameController,
+              labelText: 'Meeting Name',
+              hintText: 'Enter Meeting Name',
+              icon: Icons.text_format,
             ),
             SizedBox(height: 15),
-            Text(
-              'Participant Count',
-              style: GoogleFonts.roboto(
-                fontSize: 18,
-                color: Colors.black87,
-              ),
-            ),
-            SizedBox(height: 5),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    spreadRadius: 3,
-                    blurRadius: 7,
-                    offset: Offset(1, 1),
-                  ),
-                ],
-              ),
-              child: TextField(
-                controller: _participantCountController,
-                keyboardType: TextInputType.number,
-                inputFormatters: <TextInputFormatter>[
-                  FilteringTextInputFormatter.digitsOnly,
-                ],
-                decoration: InputDecoration(
-                  suffixIcon: Padding(
-                    padding: const EdgeInsets.only(right: 10.0),
-                    child: Icon(Icons.people, color: Colors.grey.shade600),
-                  ),
-                  hintText: 'Participant Count',
-                  hintStyle: TextStyle(
-                    color: Colors.grey.shade400,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide.none,
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-                ),
-                maxLines: 1,
-              ),
+            _buildTextField(
+              controller: _participantCountController,
+              labelText: 'Participant Count',
+              hintText: 'Participant Count',
+              icon: Icons.people,
+              inputType: TextInputType.number,
+              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
             ),
             SizedBox(height: 15),
-            Text(
-              'Category',
-              style: GoogleFonts.roboto(
-                fontSize: 18,
-                color: Colors.black87,
-              ),
-            ),
-            SizedBox(height: 5),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    spreadRadius: 3,
-                    blurRadius: 7,
-                    offset: Offset(1, 1),
-                  ),
-                ],
-              ),
-              child: DropdownButtonFormField<String>(
-                value: selectedCategory,
-                onChanged: (String? newValue) {
-                  setState(() {
-                    selectedCategory = newValue;
-                  });
-                },
-                decoration: InputDecoration(
-                  hintText: 'Select Category',
-                  hintStyle: TextStyle(
-                    color: Colors.grey.shade400,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide.none,
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
-                ),
-                items: <String>[
-                  'Category 1',
-                  'Category 2',
-                  'Category 3',
-                  'Category 4'
-                ].map<DropdownMenuItem<String>>((String value) {
-                  return DropdownMenuItem<String>(
-                    value: value,
-                    child: Text(value),
-                  );
-                }).toList(),
-              ),
-            ),
+            _buildDropdownField(),
             SizedBox(height: 15),
-            Text(
-              'The meeting is about?',
-              style: GoogleFonts.roboto(
-                fontSize: 18,
-                color: Colors.black87,
-              ),
+            _buildTextField(
+              controller: _agendaGeneratorController,
+              labelText: 'The meeting is about?',
+              hintText: 'Enter Agenda Details',
+              icon: Icons.note_add,
+              maxLines: 3,
             ),
             SizedBox(height: 5),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    spreadRadius: 3,
-                    blurRadius: 7,
-                    offset: Offset(1, 1),
-                  ),
-                ],
-              ),
-              child: TextField(
-                controller: _agendaGeneratorController,
-                decoration: InputDecoration(
-                  suffixIcon: Padding(
-                    padding: const EdgeInsets.only(right: 10.0),
-                    child: Icon(Icons.note_add, color: Colors.grey.shade600),
-                  ),
-                  hintText: 'Enter Agenda Details',
-                  hintStyle: TextStyle(
-                    color: Colors.grey.shade400,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide.none,
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-                ),
-                maxLines: 3,
-              ),
-            ),
-            SizedBox(height: 5), // Space between the TextField and the button
-            SizedBox(height: 5),  // Space between the TextField and the button
             Align(
               alignment: Alignment.centerRight,
               child: ElevatedButton(
@@ -372,84 +187,176 @@ class _CreateState extends State<Create> {
                     borderRadius: BorderRadius.circular(20),
                   ),
                   padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                  backgroundColor: Colors.blue, // Adjust button color as needed
+                  backgroundColor: Colors.blue,
                 ),
                 child: Text(
                   'Generate',
-                  style: TextStyle(fontSize: 14), // Adjust text size as needed
+                  style: TextStyle(fontSize: 14),
                 ),
               ),
             ),
-
-            SizedBox(height: 2),
-            Text(
-              'Agenda Details',
-              style: GoogleFonts.roboto(
-                fontSize: 18,
-                color: Colors.black87,
-              ),
-            ),
-
-            SizedBox(height: 5),
-            Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.black.withOpacity(0.2),
-                    spreadRadius: 3,
-                    blurRadius: 7,
-                    offset: Offset(1, 1),
-                  ),
-                ],
-              ),
-              child: TextField(
-                controller: _agendaDetailsController,
-                decoration: InputDecoration(
-                  suffixIcon: Padding(
-                    padding: const EdgeInsets.only(right: 10.0),
-                    child: Icon(Icons.text_fields, color: Colors.grey.shade600),
-                  ),
-                  hintText: 'Generated Agenda Details',
-                  hintStyle: TextStyle(
-                    color: Colors.grey.shade400,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20),
-                    borderSide: BorderSide.none,
-                  ),
-                  filled: true,
-                  fillColor: Colors.white,
-                  contentPadding:
-                      EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-                  contentPadding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-                ),
-                maxLines: 5,
-                readOnly: true, // Make this field read-only
-              ),
+            SizedBox(height: 15),
+            _buildTextField(
+              controller: _agendaDetailsController,
+              labelText: 'Agenda Details',
+              hintText: 'Generated Agenda Details',
+              icon: Icons.text_fields,
+              maxLines: 5,
+              readOnly: true,
             ),
             SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [],
-              children: [
-
-              ],
-            ),
+            _buildEditButton(),
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _navigateToNextPage,
-        child: Icon(Icons.play_arrow),
-        backgroundColor: Colors.blue,
+    );
+  }
+
+  Widget _buildTextField({
+    required TextEditingController controller,
+    required String labelText,
+    required String hintText,
+    required IconData icon,
+    TextInputType? inputType,
+    List<TextInputFormatter>? inputFormatters,
+    int maxLines = 1,
+    bool readOnly = false,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          labelText,
+          style: GoogleFonts.roboto(
+            fontSize: 18,
+            color: Colors.black87,
+          ),
+        ),
+        SizedBox(height: 5),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                spreadRadius: 1,
+                blurRadius: 5,
+                offset: Offset(1, 1),
+              ),
+            ],
+          ),
+          child: TextField(
+            controller: controller,
+            keyboardType: inputType,
+            inputFormatters: inputFormatters,
+            decoration: InputDecoration(
+              suffixIcon: Padding(
+                padding: const EdgeInsets.only(right: 10.0),
+                child: Icon(icon, color: Colors.grey.shade600),
+              ),
+              hintText: hintText,
+              hintStyle: TextStyle(
+                color: Colors.grey.shade400,
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide: BorderSide.none,
+              ),
+              filled: true,
+              fillColor: Colors.white,
+              contentPadding:
+              EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+            ),
+            maxLines: maxLines,
+            readOnly: readOnly,
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildDropdownField() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          'Category',
+          style: GoogleFonts.roboto(
+            fontSize: 18,
+            color: Colors.black87,
+          ),
+        ),
+        SizedBox(height: 5),
+        Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withOpacity(0.2),
+                spreadRadius: 3,
+                blurRadius: 7,
+                offset: Offset(1, 1),
+              ),
+            ],
+          ),
+          child: DropdownButtonFormField<String>(
+            value: selectedCategory,
+            onChanged: (String? newValue) {
+              setState(() {
+                selectedCategory = newValue;
+              });
+            },
+            decoration: InputDecoration(
+              hintText: 'Select Category',
+              hintStyle: TextStyle(
+                color: Colors.grey.shade400,
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(20),
+                borderSide: BorderSide.none,
+              ),
+              filled: true,
+              fillColor: Colors.white,
+              contentPadding:
+              EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+            ),
+            items: <String>['Category 1', 'Category 2', 'Category 3']
+                .map<DropdownMenuItem<String>>((String value) {
+              return DropdownMenuItem<String>(
+                value: value,
+                child: Text(value),
+              );
+            }).toList(),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _buildEditButton() {
+    return ElevatedButton.icon(
+      onPressed: _editAgenda,
+      style: ElevatedButton.styleFrom(
+        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        backgroundColor: Colors.orange.shade700,
+      ),
+      icon: Icon(FontAwesomeIcons.penToSquare),
+      label: Text(
+        'Edit Agenda',
+        style: TextStyle(fontSize: 16),
       ),
     );
   }
 }
 
 class NextMeetingPage extends StatelessWidget {
+  const NextMeetingPage({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -457,7 +364,7 @@ class NextMeetingPage extends StatelessWidget {
         title: Text('Next Meeting Page'),
       ),
       body: Center(
-        child: Text('This is the next meeting page.'),
+        child: Text('Next Meeting Page Content'),
       ),
     );
   }
