@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert'; // For encoding the JSON request body
+import 'dart:convert';
 
 class Create extends StatefulWidget {
   const Create({super.key});
@@ -18,7 +18,7 @@ class _CreateState extends State<Create> {
   final TextEditingController _participantCountController = TextEditingController();
   final TextEditingController _agendaGeneratorController = TextEditingController();
   final TextEditingController _agendaDetailsController = TextEditingController();
-  Map<String, dynamic>? _jsonResponse;
+  bool _isEditable = false; // To control the read-only state of the agenda details
 
   @override
   void initState() {
@@ -66,42 +66,6 @@ class _CreateState extends State<Create> {
     }
   }
 
-  void _editAgenda() {
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text('Edit Agenda'),
-          content: TextField(
-            controller: _agendaDetailsController,
-            decoration: InputDecoration(
-              hintText: 'Edit agenda details',
-              border: OutlineInputBorder(),
-            ),
-            maxLines: 5,
-          ),
-          actions: [
-            TextButton(
-              onPressed: () {
-                setState(() {
-                  _jsonResponse = jsonDecode(_agendaDetailsController.text);
-                });
-                Navigator.of(context).pop();
-              },
-              child: Text('Save'),
-            ),
-            TextButton(
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-              child: Text('Cancel'),
-            ),
-          ],
-        );
-      },
-    );
-  }
-
   @override
   void dispose() {
     _meetingNameController.dispose();
@@ -116,6 +80,12 @@ class _CreateState extends State<Create> {
       context,
       MaterialPageRoute(builder: (context) => NextMeetingPage()),
     );
+  }
+
+  void _toggleEditable() {
+    setState(() {
+      _isEditable = !_isEditable;
+    });
   }
 
   @override
@@ -139,75 +109,77 @@ class _CreateState extends State<Create> {
             color: Colors.black87,
           ),
         ),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.play_arrow, color: Colors.black87),
-            onPressed: _navigateToNextPage,
-          ),
-        ],
       ),
-      resizeToAvoidBottomInset: false,
-      body: SafeArea(
-        child: ListView(
+      resizeToAvoidBottomInset: true, // Adjusts the view when keyboard appears
+      body: SingleChildScrollView( // Allows scrolling when keyboard appears
+        child: Padding(
           padding: EdgeInsets.all(16.0),
-          children: [
-            SizedBox(height: 40),
-            _buildTextField(
-              controller: _meetingNameController,
-              labelText: 'Meeting Name',
-              hintText: 'Enter Meeting Name',
-              icon: Icons.text_format,
-            ),
-            SizedBox(height: 15),
-            _buildTextField(
-              controller: _participantCountController,
-              labelText: 'Participant Count',
-              hintText: 'Participant Count',
-              icon: Icons.people,
-              inputType: TextInputType.number,
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-            ),
-            SizedBox(height: 15),
-            _buildDropdownField(),
-            SizedBox(height: 15),
-            _buildTextField(
-              controller: _agendaGeneratorController,
-              labelText: 'The meeting is about?',
-              hintText: 'Enter Agenda Details',
-              icon: Icons.note_add,
-              maxLines: 3,
-            ),
-            SizedBox(height: 5),
-            Align(
-              alignment: Alignment.centerRight,
-              child: ElevatedButton(
-                onPressed: _generateAgenda,
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(height: 40),
+              _buildTextField(
+                controller: _meetingNameController,
+                labelText: 'Meeting Name',
+                hintText: 'Enter Meeting Name',
+                icon: Icons.text_format,
+              ),
+              SizedBox(height: 15),
+              _buildTextField(
+                controller: _participantCountController,
+                labelText: 'Participant Count',
+                hintText: 'Participant Count',
+                icon: Icons.people,
+                inputType: TextInputType.number,
+                inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+              ),
+              SizedBox(height: 15),
+              _buildDropdownField(),
+              SizedBox(height: 15),
+              _buildTextField(
+                controller: _agendaGeneratorController,
+                labelText: 'The meeting is about?',
+                hintText: 'Enter Agenda Details',
+                icon: Icons.note_add,
+                maxLines: 3,
+              ),
+              SizedBox(height: 1), // Reduced space between the Generate button and the Agenda container
+              Align(
+                alignment: Alignment.centerRight,
+                child: ElevatedButton(
+                  onPressed: _generateAgenda,
+                  style: ElevatedButton.styleFrom(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+                    backgroundColor: Colors.blue,
                   ),
-                  padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                  backgroundColor: Colors.blue,
-                ),
-                child: Text(
-                  'Generate',
-                  style: TextStyle(fontSize: 14),
+                  child: Text(
+                    'Generate',
+                    style: TextStyle(fontSize: 14),
+                  ),
                 ),
               ),
-            ),
-            SizedBox(height: 15),
-            _buildTextField(
-              controller: _agendaDetailsController,
-              labelText: 'Agenda Details',
-              hintText: 'Generated Agenda Details',
-              icon: Icons.text_fields,
-              maxLines: 5,
-              readOnly: true,
-            ),
-            SizedBox(height: 20),
-            _buildEditButton(),
-          ],
+              SizedBox(height: 0), // Reduced space between Generate and Agenda Details
+              _buildTextField(
+                controller: _agendaDetailsController,
+                labelText: 'Agenda Details',
+                hintText: 'Generated Agenda Details',
+                icon: Icons.text_fields,
+                maxLines: null, // Allow the box to expand according to content
+                readOnly: !_isEditable, // Make the field editable based on _isEditable
+                hasEditIcon: true, // Show the edit icon
+              ),
+              SizedBox(height: 50),
+            ],
+          ),
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: _navigateToNextPage,
+        backgroundColor: Colors.blue,
+        child: Icon(Icons.play_arrow),
       ),
     );
   }
@@ -219,8 +191,9 @@ class _CreateState extends State<Create> {
     required IconData icon,
     TextInputType? inputType,
     List<TextInputFormatter>? inputFormatters,
-    int maxLines = 1,
+    int? maxLines = 1,
     bool readOnly = false,
+    bool hasEditIcon = false,
   }) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -246,30 +219,41 @@ class _CreateState extends State<Create> {
               ),
             ],
           ),
-          child: TextField(
-            controller: controller,
-            keyboardType: inputType,
-            inputFormatters: inputFormatters,
-            decoration: InputDecoration(
-              suffixIcon: Padding(
-                padding: const EdgeInsets.only(right: 10.0),
-                child: Icon(icon, color: Colors.grey.shade600),
+          child: Row(
+            children: [
+              Expanded(
+                child: TextField(
+                  controller: controller,
+                  keyboardType: inputType,
+                  inputFormatters: inputFormatters,
+                  decoration: InputDecoration(
+                    suffixIcon: Padding(
+                      padding: const EdgeInsets.only(right: 10.0),
+                      child: Icon(icon, color: Colors.grey.shade600),
+                    ),
+                    hintText: hintText,
+                    hintStyle: TextStyle(
+                      color: Colors.grey.shade400,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide.none,
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
+                    contentPadding:
+                    EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+                  ),
+                  maxLines: maxLines,
+                  readOnly: readOnly,
+                ),
               ),
-              hintText: hintText,
-              hintStyle: TextStyle(
-                color: Colors.grey.shade400,
-              ),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(20),
-                borderSide: BorderSide.none,
-              ),
-              filled: true,
-              fillColor: Colors.white,
-              contentPadding:
-              EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
-            ),
-            maxLines: maxLines,
-            readOnly: readOnly,
+              if (hasEditIcon)
+                IconButton(
+                  icon: Icon(FontAwesomeIcons.penToSquare, size: 18),
+                  onPressed: _toggleEditable, // Toggles editing mode
+                ),
+            ],
           ),
         ),
       ],
@@ -319,10 +303,9 @@ class _CreateState extends State<Create> {
               ),
               filled: true,
               fillColor: Colors.white,
-              contentPadding:
-              EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+              contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
             ),
-            items: <String>['Category 1', 'Category 2', 'Category 3']
+            items: <String>['Business', 'Technology', 'Education', 'Health']
                 .map<DropdownMenuItem<String>>((String value) {
               return DropdownMenuItem<String>(
                 value: value,
@@ -334,29 +317,10 @@ class _CreateState extends State<Create> {
       ],
     );
   }
-
-  Widget _buildEditButton() {
-    return ElevatedButton.icon(
-      onPressed: _editAgenda,
-      style: ElevatedButton.styleFrom(
-        padding: EdgeInsets.symmetric(horizontal: 15, vertical: 12),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        backgroundColor: Colors.orange.shade700,
-      ),
-      icon: Icon(FontAwesomeIcons.penToSquare),
-      label: Text(
-        'Edit Agenda',
-        style: TextStyle(fontSize: 16),
-      ),
-    );
-  }
 }
 
-class NextMeetingPage extends StatelessWidget {
-  const NextMeetingPage({super.key});
 
+class NextMeetingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -364,7 +328,7 @@ class NextMeetingPage extends StatelessWidget {
         title: Text('Next Meeting Page'),
       ),
       body: Center(
-        child: Text('Next Meeting Page Content'),
+        child: Text('Next page content here'),
       ),
     );
   }
