@@ -75,12 +75,7 @@ class _CreateState extends State<Create> {
     super.dispose();
   }
 
-  void _navigateToNextPage() {
-    Navigator.push(
-      context,
-      MaterialPageRoute(builder: (context) => NextMeetingPage()),
-    );
-  }
+ 
 
   void _toggleEditable() {
     setState(() {
@@ -206,15 +201,21 @@ class _CreateState extends State<Create> {
                 readOnly: !_isEditable, // Make the field editable based on _isEditable
                 hasEditIcon: true, // Show the edit icon
               ),
-              SizedBox(height: 50),
+              SizedBox(height: 30), // Space before the play button
+              Center(
+                child: ElevatedButton(
+                  onPressed: (){},
+                  style: ElevatedButton.styleFrom(
+                    shape: CircleBorder(),
+                    padding: EdgeInsets.all(20),
+                    backgroundColor: Colors.blue,
+                  ),
+                  child: Icon(Icons.play_arrow, size: 15, color: Colors.white),
+                ),
+              ),
             ],
           ),
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _navigateToNextPage,
-        backgroundColor: Colors.blue,
-        child: Icon(Icons.play_arrow),
       ),
     );
   }
@@ -283,10 +284,13 @@ class _CreateState extends State<Create> {
                   readOnly: readOnly,
                 ),
               ),
-              if (hasEditIcon)
-                IconButton(
-                  icon: Icon(FontAwesomeIcons.penToSquare, size: 18),
-                  onPressed: _toggleEditable, // Toggles editing mode
+              if (hasEditIcon) // Show edit icon only if hasEditIcon is true
+                GestureDetector(
+                  onTap: _toggleEditable,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                    child: Icon(Icons.edit, color: Colors.grey.shade600),
+                  ),
                 ),
             ],
           ),
@@ -314,57 +318,38 @@ class _CreateState extends State<Create> {
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withOpacity(0.2),
-                spreadRadius: 3,
-                blurRadius: 7,
+                spreadRadius: 1,
+                blurRadius: 5,
                 offset: Offset(1, 1),
               ),
             ],
           ),
           child: DropdownButtonFormField<String>(
             value: selectedCategory,
-            onChanged: (String? newValue) {
+            items: ['Workshop', 'Discussion', 'Conference', 'Standup']
+                .map((category) => DropdownMenuItem<String>(
+              value: category,
+              child: Text(category),
+            ))
+                .toList(),
+            onChanged: (value) {
               setState(() {
-                selectedCategory = newValue;
+                selectedCategory = value;
               });
             },
             decoration: InputDecoration(
-              hintText: 'Select Category',
-              hintStyle: TextStyle(
-                color: Colors.grey.shade400,
-              ),
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(20),
                 borderSide: BorderSide.none,
               ),
               filled: true,
               fillColor: Colors.white,
-              contentPadding: EdgeInsets.symmetric(horizontal: 10.0),
+              contentPadding:
+              EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
             ),
-            items: <String>['Business', 'Technology', 'Education', 'Health']
-                .map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
           ),
         ),
       ],
-    );
-  }
-}
-
-
-class NextMeetingPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Next Meeting Page'),
-      ),
-      body: Center(
-        child: Text('Next page content here'),
-      ),
     );
   }
 }
