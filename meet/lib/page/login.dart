@@ -67,9 +67,7 @@ class _LoginPageState extends State<LoginPage> {
                         setState(() {
                           _obscureText = !_obscureText;
                         });
-                       Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => Home()));
-                      },
+                                },
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30.0),
