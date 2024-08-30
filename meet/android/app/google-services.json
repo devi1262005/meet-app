@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "637344477928",
+    "project_id": "meeting-ds",
+    "storage_bucket": "meeting-ds.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:637344477928:android:90d7e3d782d0c7eaa24f5d",
+        "android_client_info": {
+          "package_name": "com.example.meet"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyALJQG8b9mGUU-2aOSSXYred03q2550R0Q"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
