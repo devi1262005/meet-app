@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
-
+import 'package:meet/page/Home.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -16,11 +15,8 @@ class _LoginPageState extends State<LoginPage> {
   bool _obscureText = true;
 
   void _login() {
-    // Add login logic here
     String email = _emailController.text;
     String password = _passwordController.text;
-
-    // For simplicity, just print the input
     print('Email: $email, Password: $password');
   }
 
@@ -39,10 +35,9 @@ class _LoginPageState extends State<LoginPage> {
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
-                    color: Colors.purple,
+                    color: Color.fromARGB(255, 106, 27, 154),
                   ),
                 ),
-              
                 const SizedBox(height: 50),
                 TextField(
                   controller: _emailController,
@@ -72,6 +67,8 @@ class _LoginPageState extends State<LoginPage> {
                         setState(() {
                           _obscureText = !_obscureText;
                         });
+                       Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => Home()));
                       },
                     ),
                     border: OutlineInputBorder(
@@ -81,9 +78,12 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 30),
                 ElevatedButton(
-                  onPressed: _login,
+                  onPressed: (){
+                             Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => Home()));
+                  },
                   style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.purple,
+                    backgroundColor: Colors.purple.shade800,
                     padding: const EdgeInsets.symmetric(
                         horizontal: 100.0, vertical: 15.0),
                     shape: RoundedRectangleBorder(
@@ -94,8 +94,8 @@ class _LoginPageState extends State<LoginPage> {
                     'Login',
                     style: TextStyle(
                       fontSize: 18,
-                      color:Color.fromARGB(255, 255, 255, 255),),
-
+                      color: Color.fromARGB(255, 255, 255, 255),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 20),
@@ -106,7 +106,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: const Text(
                     'Forgot Password?',
                     style: TextStyle(
-                      color: Colors.purple,
+                      color: Color.fromARGB(255, 106, 27, 154),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -123,7 +123,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: const Text(
                         'Sign Up',
                         style: TextStyle(
-                          color: Colors.purple,
+                          color: Color.fromARGB(255, 106, 27, 154),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -141,21 +141,12 @@ class _LoginPageState extends State<LoginPage> {
                         // Add Facebook login functionality here
                       },
                     ),
-                    ShaderMask(
-                      shaderCallback: (bounds) => LinearGradient(
-                        colors: [
-                          const Color.fromARGB(196, 0, 133, 242),
-                          Colors.red,
-                          const Color.fromARGB(255, 244, 228, 88),
-                          const Color.fromARGB(255, 11, 143, 15),
-                        ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ).createShader(bounds),
-                      child: const FaIcon(
-                        FontAwesomeIcons.google,
-                        color: Colors.white, // Keep this white for ShaderMask
-                      ),
+                    IconButton(
+                      icon: const FaIcon(FontAwesomeIcons.google),
+                      color: null, // Original color removed
+                      onPressed: () {
+                        // Add Google login functionality here
+                      },
                     ),
                     IconButton(
                       icon: const FaIcon(FontAwesomeIcons.twitter),
