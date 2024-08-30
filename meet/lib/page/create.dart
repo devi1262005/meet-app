@@ -124,6 +124,41 @@ class _CreateState extends State<Create> {
                 hintText: 'Enter Meeting Name',
                 icon: Icons.text_format,
               ),
+              const SizedBox(height: 10),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(20),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.2),
+                      spreadRadius: 1,
+                      blurRadius: 5,
+                      offset: const Offset(1, 1),
+                    ),
+                  ],
+                ),
+                child: TextField(
+                  decoration: InputDecoration(
+                    suffixIcon: Padding(
+                      padding: const EdgeInsets.only(right: 10.0),
+                      child: Icon(Icons.refresh, color: Colors.grey.shade600),
+                    ),
+                    hintText: 'Enter Meeting Name to generate code',
+                    hintStyle: TextStyle(
+                      color: Colors.grey.shade400,
+                    ),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20),
+                      borderSide: BorderSide.none,
+                    ),
+                    filled: true,
+                    fillColor: Colors.white,
+                    contentPadding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0), // Adjust padding
+                  ),
+                  maxLines: 1,
+                ),
+              ),
               SizedBox(height: 15),
               _buildTextField(
                 controller: _participantCountController,
