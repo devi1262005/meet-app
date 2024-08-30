@@ -34,16 +34,16 @@ class _LoginPageState extends State<LoginPage> {
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                const CircleAvatar(
-                  radius: 60,
-                  backgroundColor: Colors.purple,
-                  child: Icon(
-                    FontAwesomeIcons.user,
-                    size: 50,
-                    color: Colors.white,
+                const Text(
+                  'Login Page',
+                  style: TextStyle(
+                    fontSize: 32,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.purple,
                   ),
                 ),
-                const SizedBox(height: 30),
+              
+                const SizedBox(height: 50),
                 TextField(
                   controller: _emailController,
                   decoration: InputDecoration(
