@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:meet/page/Home.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -15,9 +13,17 @@ class _LoginPageState extends State<LoginPage> {
   bool _obscureText = true;
 
   void _login() {
+    // Add login logic here
     String email = _emailController.text;
     String password = _passwordController.text;
+
+    // For simplicity, just print the input
     print('Email: $email, Password: $password');
+  }
+
+  void _signInWithGoogle() {
+    // Add Google sign-in logic here
+    print('Sign in with Google');
   }
 
   @override
@@ -35,7 +41,7 @@ class _LoginPageState extends State<LoginPage> {
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
-                    color: Color.fromARGB(255, 106, 27, 154),
+                    color: Colors.purple,
                   ),
                 ),
                 const SizedBox(height: 50),
@@ -59,15 +65,13 @@ class _LoginPageState extends State<LoginPage> {
                     prefixIcon: const Icon(Icons.lock),
                     suffixIcon: IconButton(
                       icon: Icon(
-                        _obscureText
-                            ? Icons.visibility
-                            : Icons.visibility_off,
+                        _obscureText ? Icons.visibility : Icons.visibility_off,
                       ),
                       onPressed: () {
                         setState(() {
                           _obscureText = !_obscureText;
                         });
-                                },
+                      },
                     ),
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(30.0),
@@ -76,10 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 30),
                 ElevatedButton(
-                  onPressed: (){
-                             Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => Home()));
-                  },
+                  onPressed: _login,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.purple.shade800,
                     padding: const EdgeInsets.symmetric(
@@ -104,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: const Text(
                     'Forgot Password?',
                     style: TextStyle(
-                      color: Color.fromARGB(255, 106, 27, 154),
+                      color: Colors.purple,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -121,7 +122,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: const Text(
                         'Sign Up',
                         style: TextStyle(
-                          color: Color.fromARGB(255, 106, 27, 154),
+                          color: Colors.purple,
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -129,31 +130,32 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
                 const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
-                      icon: const FaIcon(FontAwesomeIcons.facebook),
-                      color: Colors.blue,
-                      onPressed: () {
-                        // Add Facebook login functionality here
-                      },
+                ElevatedButton.icon(
+                  onPressed: _signInWithGoogle,
+                  icon: Container(
+                    padding: const EdgeInsets.all(2.0), // Border width
+                    decoration: BoxDecoration(
+                      color: Colors.white, // Border color
+                      shape: BoxShape.circle,
                     ),
-                    IconButton(
-                      icon: const FaIcon(FontAwesomeIcons.google),
-                      color: null, // Original color removed
-                      onPressed: () {
-                        // Add Google login functionality here
-                      },
+                    child: CircleAvatar(
+                      radius: 12,
+                      backgroundImage:
+                          AssetImage('assets/images/google.png'), // Replace with your image path
                     ),
-                    IconButton(
-                      icon: const FaIcon(FontAwesomeIcons.twitter),
-                      color: Colors.lightBlue,
-                      onPressed: () {
-                        // Add Twitter login functionality here
-                      },
+                  ),
+                  label: const Text(
+                    'Sign in with Google',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.white,
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 20.0, vertical: 15.0),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
                     ),
-                  ],
+                  ),
                 ),
               ],
             ),
