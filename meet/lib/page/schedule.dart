@@ -41,7 +41,7 @@ class _CreateState extends State<Schedule> {
         ),
         leading: IconButton(
           icon: FaIcon(
-            FontAwesomeIcons.angleLeft,
+            FontAwesomeIcons.arrowLeft,
             color: Colors.purple.shade800,
           ),
           onPressed: () {
@@ -65,7 +65,7 @@ class _CreateState extends State<Schedule> {
             children: [
               const SizedBox(height: 40),
               _buildLabel('Meeting Name'),
-              _buildTextField('Enter Meeting Name', Icons.text_format),
+              _buildTextField('Enter Meeting Name', Icons.text_format,),
               const SizedBox(height: 15),
               _buildLabel('Date and Day'),
               _buildTextField('Select Date', Icons.calendar_month, isDate: true),
@@ -117,7 +117,6 @@ class _CreateState extends State<Schedule> {
           BottomNavigationBarItem(
             icon: GestureDetector(
               onTap: () {
-                // Add the functionality you want to trigger when the button is pressed
               },
               child: Container(
                 padding: const EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
@@ -151,107 +150,100 @@ class _CreateState extends State<Schedule> {
     );
   }
 
-  Widget _buildTextField(String hint, IconData? icon, {bool isNumber = false, bool isDate = false, bool isTime = false}) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            spreadRadius: 1,
-            blurRadius: 5,
-            offset: const Offset(1, 1),
-          ),
-        ],
-      ),
-      child: TextField(
-        keyboardType: isNumber ? TextInputType.number : TextInputType.text,
-        inputFormatters: isNumber ? [FilteringTextInputFormatter.digitsOnly] : null,
-        decoration: InputDecoration(
-          suffixIcon: icon != null ? Padding(
-            padding: const EdgeInsets.only(right: 10.0),
-            child: Icon(icon, color: Colors.grey.shade600),
-          ) : null,
-          hintText: hint,
-          hintStyle: TextStyle(
-            color: Colors.grey.shade400,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide.none,
-          ),
-          filled: true,
-          fillColor: Colors.white,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
+ Widget _buildTextField(String hint, IconData? icon, {bool isNumber = false, bool isDate = false, bool isTime = false}) {
+  return Container(
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(30),
+     
+    ),
+    child: TextField(
+      keyboardType: isNumber ? TextInputType.number : TextInputType.text,
+      inputFormatters: isNumber ? [FilteringTextInputFormatter.digitsOnly] : null,
+      decoration: InputDecoration(
+        labelText: hint,
+        floatingLabelBehavior: FloatingLabelBehavior.auto,
+        suffixIcon: icon != null
+            ? Padding(
+                padding: const EdgeInsets.only(right: 10.0),
+                child: Icon(icon, color: Colors.grey.shade600),
+              )
+            : null,
+        hintStyle: TextStyle(
+          color: Colors.grey.shade400,
         ),
-        maxLines: 1,
-        readOnly: isDate || isTime,
-        onTap: () async {
-          if (isDate) {
-            final date = await showDatePicker(
-              context: context,
-              initialDate: DateTime.now(),
-              firstDate: DateTime(2000),
-              lastDate: DateTime(2101),
-            );
-          } else if (isTime) {
-            final time = await showTimePicker(
-              context: context,
-              initialTime: TimeOfDay.now(),
-            );
-          }
-        },
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        filled: true,
+        fillColor: Colors.white,
+        contentPadding:
+            const EdgeInsets.symmetric(horizontal: 10.0, vertical: 8.0),
       ),
-    );
-  }
+      maxLines: 1,
+      readOnly: isDate || isTime,
+      onTap: () async {
+        if (isDate) {
+          // ignore: unused_local_variable
+          final date = await showDatePicker(
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2000),
+            lastDate: DateTime(2101),
+          );
+        } else if (isTime) {
+          // ignore: unused_local_variable
+          final time = await showTimePicker(
+            context: context,
+            initialTime: TimeOfDay.now(),
+          );
+        }
+      },
+    ),
+  );
+}
+
+
 
   Widget _buildDropdownField() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.2),
-            spreadRadius: 1,
-            blurRadius: 5,
-            offset: const Offset(1, 1),
-          ),
-        ],
-      ),
-      child: DropdownButtonFormField<String>(
-        value: selectedCategory,
-        onChanged: (String? newValue) {
-          setState(() {
-            selectedCategory = newValue;
-          });
-        },
-        decoration: InputDecoration(
-          hintText: 'Select Category',
-          hintStyle: TextStyle(
-            color: Colors.grey.shade400,
-          ),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(20),
-            borderSide: BorderSide.none,
-          ),
-          filled: true,
-          fillColor: Colors.white,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
+  return Container(
+    decoration: BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.circular(20),
+     
+    ),
+    child: DropdownButtonFormField<String>(
+      value: selectedCategory,
+      onChanged: (String? newValue) {
+        setState(() {
+          selectedCategory = newValue;
+        });
+      },
+      decoration: InputDecoration(
+        hintText: 'Select Category',
+        hintStyle: TextStyle(
+          color: Colors.grey.shade400,
         ),
-        items: <String>[
-          'Category 1',
-          'Category 2',
-          'Category 3',
-          'Category 4'
-        ].map<DropdownMenuItem<String>>((String value) {
-          return DropdownMenuItem<String>(
-            value: value,
-            child: Text(value),
-          );
-        }).toList(),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+        filled: true,
+        fillColor: Colors.white,
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 12.0),
       ),
-    );
-  }
+      items: <String>[
+        'Category 1',
+        'Category 2',
+        'Category 3',
+        'Category 4'
+      ].map<DropdownMenuItem<String>>((String value) {
+        return DropdownMenuItem<String>(
+          value: value,
+          child: Text(value),
+        );
+      }).toList(),
+    ),
+  );
+}
+
 }
