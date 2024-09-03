@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class VideoCallPage extends StatefulWidget {
   const VideoCallPage({super.key});
@@ -11,6 +10,8 @@ class VideoCallPage extends StatefulWidget {
 class _VideoCallPageState extends State<VideoCallPage> {
   bool _isMuted = false;
   bool _isVideoOff = false;
+  bool _isSpeakerOn = true;
+  bool _isCameraSwitched = false;
 
   void _toggleMute() {
     setState(() {
@@ -24,119 +25,209 @@ class _VideoCallPageState extends State<VideoCallPage> {
     });
   }
 
+  void _toggleSpeaker() {
+    setState(() {
+      _isSpeakerOn = !_isSpeakerOn;
+    });
+  }
+
+  void _switchCamera() {
+    setState(() {
+      _isCameraSwitched = !_isCameraSwitched;
+    });
+  }
+
   void _endCall() {
-    // Add logic to end the call
-    print('Call ended');
+    // Show a confirmation dialog
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('End Call'),
+          content: const Text('Do you want to end the call?'),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+                // Add logic to end the call
+                print('Call ended');
+              },
+              child: const Text('Yes'),
+            ),
+            TextButton(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('No'),
+            ),
+          ],
+        );
+      },
+    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black,
-      body: Stack(
-        children: [
-          // Background video stream (Placeholder)
-          Positioned.fill(
-            child: _isVideoOff
-                ? Center(
-                    child: Icon(
-                      Icons.videocam_off,
-                      color: Colors.white,
-                      size: 100.0,
-                    ),
-                  )
-                : Container(
-                    color: Colors.grey[900],
-                    child: const Center(
-                      child: Text(
-                        'Video Stream',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 24,
-                        ),
-                      ),
-                    ),
-                  ),
-          ),
-          // Top controls (user info, etc.)
-          Positioned(
-            top: 40,
-            left: 20,
-            right: 20,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        title: Row(
+          children: [
+            CircleAvatar(
+              radius: 25,
+              backgroundImage: AssetImage('assets/images/user_avatar.png'), // Replace with your image
+            ),
+            SizedBox(width: 10),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const CircleAvatar(
-                  radius: 20,
-                  backgroundImage: AssetImage('assets/images/user_avatar.png'), // Replace with your image
+                Text(
+                  'John Doe',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'Meeting with Team',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    Text(
-                      '00:32:18', // Duration placeholder
-                      style: TextStyle(
-                        color: Colors.white54,
-                        fontSize: 14,
-                      ),
-                    ),
-                  ],
-                ),
-                const Icon(
-                  Icons.more_vert,
-                  color: Colors.white,
-                  size: 24.0,
+                Text(
+                  'Team Meeting',
+                  style: TextStyle(
+                    color: Colors.white70,
+                    fontSize: 14,
+                  ),
                 ),
               ],
             ),
+          ],
+        ),
+        actions: [
+          IconButton(
+            icon: Icon(
+              Icons.more_vert,
+              color: Colors.white,
+              size: 28.0,
+            ),
+            onPressed: () {
+              // Add more options functionality here
+            },
           ),
-          // Bottom controls (mute, video, end call)
-          Positioned(
-            bottom: 40,
-            left: 20,
-            right: 20,
+        ],
+      ),
+      body: Column(
+        children: [
+          // Video Stream Box
+          Expanded(
+            flex: 4,
+            child: Stack(
+              children: [
+                _isVideoOff
+                    ? Center(
+                        child: Icon(
+                          Icons.videocam_off,
+                          color: Colors.white,
+                          size: 100.0,
+                        ),
+                      )
+                    : Container(
+                        color: Colors.grey[900],
+                        child: const Center(
+                          child: Text(
+                            'Video Stream',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 24,
+                            ),
+                          ),
+                        ),
+                      ),
+              ],
+            ),
+          ),
+          // Participant Box
+          Container(
+            color: Colors.black,
+            height: 150,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.symmetric(vertical: 5.0, horizontal: 10.0),
+              children: [
+                _buildParticipant(),
+                const SizedBox(width: 10),
+                _buildParticipant(),
+                const SizedBox(width: 10),
+                _buildParticipant(),
+              ],
+            ),
+          ),
+          // Bottom controls
+          Padding(
+            padding: const EdgeInsets.all(10.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                FloatingActionButton(
+                _buildControlButton(
                   onPressed: _toggleMute,
-                  backgroundColor: _isMuted ? Colors.red : Colors.grey,
-                  child: Icon(
-                    _isMuted ? Icons.mic_off : Icons.mic,
-                    color: Colors.white,
-                    size: 24.0,
-                  ),
+                  icon: _isMuted ? Icons.mic_off : Icons.mic,
+                  color: _isMuted ? Colors.red : Colors.white,
                 ),
-                FloatingActionButton(
+                _buildControlButton(
                   onPressed: _toggleVideo,
-                  backgroundColor: _isVideoOff ? Colors.red : Colors.grey,
-                  child: Icon(
-                    _isVideoOff ? Icons.videocam_off : Icons.videocam,
-                    color: Colors.white,
-                    size: 24.0,
-                  ),
+                  icon: _isVideoOff ? Icons.videocam_off : Icons.videocam,
+                  color: _isVideoOff ? Colors.red : Colors.white,
                 ),
-                FloatingActionButton(
+                _buildControlButton(
+                  onPressed: _toggleSpeaker,
+                  icon: _isSpeakerOn ? Icons.volume_up : Icons.volume_off,
+                  color: _isSpeakerOn ? Colors.white : Colors.red,
+                ),
+                _buildControlButton(
+                  onPressed: _switchCamera,
+                  icon: Icons.switch_camera,
+                  color: Colors.white,
+                ),
+                _buildControlButton(
                   onPressed: _endCall,
-                  backgroundColor: Colors.red,
-                  child: const Icon(
-                    Icons.call_end,
-                    color: Colors.white,
-                    size: 28.0,
-                  ),
+                  icon: Icons.call_end,
+                  color: Colors.red,
+                  isEndCall: true,
                 ),
               ],
             ),
           ),
         ],
+      ),
+    );
+  }
+
+  Widget _buildParticipant() {
+    return Container(
+      width: 120,
+      height: 120,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(10.0),
+        border: Border.all(color: Colors.white, width: 2.0),
+        image: const DecorationImage(
+          image: AssetImage('assets/images/avatar.jpeg'),
+          fit: BoxFit.cover,
+        ),
+      ),
+    );
+  }
+
+  Widget _buildControlButton({
+    required VoidCallback onPressed,
+    required IconData icon,
+    required Color color,
+    bool isEndCall = false,
+  }) {
+    return FloatingActionButton(
+      onPressed: onPressed,
+      backgroundColor: isEndCall ? Colors.grey[800] : Colors.grey[800],
+      child: Icon(
+        icon,
+        color: color,
+        size: 28.0,
       ),
     );
   }
