@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:meet/page/Home.dart';
 
 class VideoCallPage extends StatefulWidget {
   const VideoCallPage({super.key});
@@ -48,7 +49,8 @@ class _VideoCallPageState extends State<VideoCallPage> {
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                Navigator.of(context).pop();
+                   Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => Home()));
                 // Add logic to end the call
                 print('Call ended');
               },
@@ -191,6 +193,7 @@ class _VideoCallPageState extends State<VideoCallPage> {
                   icon: Icons.call_end,
                   color: Colors.red,
                   isEndCall: true,
+                  
                 ),
               ],
             ),
