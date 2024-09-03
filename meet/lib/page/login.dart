@@ -1,4 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:meet/page/Home.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -12,18 +16,27 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
   bool _obscureText = true;
 
-  void _login() {
-    // Add login logic here
-    String email = _emailController.text;
-    String password = _passwordController.text;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-    // For simplicity, just print the input
-    print('Email: $email, Password: $password');
+  // Modified for prototyping purposes
+  Future<void> _loginWithEmailPassword() async {
+    if (_emailController.text.isNotEmpty && _passwordController.text.isNotEmpty) {
+      // Skip authentication and navigate to Home for prototyping
+      Navigator.pushReplacement(
+          context, MaterialPageRoute(builder: (context) => Home()));
+    } else {
+      // Display a simple message for empty fields
+      print('Email and password cannot be empty.');
+      // Show a Snackbar or AlertDialog for better UX
+    }
   }
 
-  void _signInWithGoogle() {
-    // Add Google sign-in logic here
-    print('Sign in with Google');
+  // Modified for prototyping purposes
+  Future<void> _loginWithGoogle() async {
+    // Skip Google Sign-In process and navigate to Home for prototyping
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => Home()));
   }
 
   @override
@@ -41,7 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                   style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
-                    color: Colors.purple,
+                    color: Color.fromARGB(255, 106, 27, 154),
                   ),
                 ),
                 const SizedBox(height: 50),
@@ -80,7 +93,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 30),
                 ElevatedButton(
-                  onPressed: _login,
+                  onPressed: _loginWithEmailPassword,
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.purple.shade800,
                     padding: const EdgeInsets.symmetric(
@@ -105,7 +118,7 @@ class _LoginPageState extends State<LoginPage> {
                   child: const Text(
                     'Forgot Password?',
                     style: TextStyle(
-                      color: Colors.purple,
+                      color: Color.fromARGB(255, 106, 27, 154),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -122,7 +135,7 @@ class _LoginPageState extends State<LoginPage> {
                       child: const Text(
                         'Sign Up',
                         style: TextStyle(
-                          color: Colors.purple,
+                          color: Color.fromARGB(255, 106, 27, 154),
                           fontWeight: FontWeight.bold,
                         ),
                       ),
@@ -130,32 +143,15 @@ class _LoginPageState extends State<LoginPage> {
                   ],
                 ),
                 const SizedBox(height: 20),
-                ElevatedButton.icon(
-                  onPressed: _signInWithGoogle,
-                  icon: Container(
-                    padding: const EdgeInsets.all(2.0), // Border width
-                    decoration: BoxDecoration(
-                      color: Colors.white, // Border color
-                      shape: BoxShape.circle,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    IconButton(
+                      icon: const FaIcon(FontAwesomeIcons.google),
+                      color: Colors.red,
+                      onPressed: _loginWithGoogle,
                     ),
-                    child: CircleAvatar(
-                      radius: 12,
-                      backgroundImage:
-                          AssetImage('assets/images/google.png'), // Replace with your image path
-                    ),
-                  ),
-                  label: const Text(
-                    'Sign in with Google',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(
-                        horizontal: 20.0, vertical: 15.0),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
-                    ),
-                  ),
+                  ],
                 ),
               ],
             ),
