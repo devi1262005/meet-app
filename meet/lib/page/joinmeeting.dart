@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // ignore: depend_on_referenced_packages
 import 'package:google_fonts/google_fonts.dart';
+import 'package:meet/page/waiting.dart';
 
 class Joinmeet extends StatefulWidget {
   const Joinmeet({super.key});
@@ -164,7 +165,7 @@ class _JoinmeetState extends State<Joinmeet> {
         onPressed: () {
           // Add your onPressed functionality here
           Navigator.pushReplacement(
-              context, MaterialPageRoute(builder: (context) => const Joinmeet()));
+              context, MaterialPageRoute(builder: (context) => const Waiting()));
         },
         backgroundColor: Colors.purple.shade800,
         shape: const CircleBorder(),
