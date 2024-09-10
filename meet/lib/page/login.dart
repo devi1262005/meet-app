@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:meet/page/Home.dart';
+import 'package:meet/page/signin.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -131,6 +132,8 @@ class _LoginPageState extends State<LoginPage> {
                     TextButton(
                       onPressed: () {
                         // Add navigation to registration page here
+                        Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => Signup()));
                       },
                       child: const Text(
                         'Sign Up',
