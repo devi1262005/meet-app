@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // ignore: depend_on_referenced_packages
 import 'package:google_fonts/google_fonts.dart';
+import 'package:meet/page/Home.dart';
 
 class Endofmeet extends StatefulWidget {
   const Endofmeet({super.key});
@@ -33,15 +34,7 @@ class _CreateState extends State<Endofmeet> {
         elevation: 4,
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         shadowColor: Colors.black.withOpacity(0.1),
-        leading: IconButton(
-          icon: FaIcon(
-            FontAwesomeIcons.angleLeft,
-            color: Colors.purple.shade800,
-          ),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+       
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(2.0),
           child: Container(
@@ -51,7 +44,7 @@ class _CreateState extends State<Endofmeet> {
         ),
       ),
       body: Container(
-        color: const Color.fromARGB(255, 238, 204, 244), // Light purple background color
+        // Light purple background color
         child: Stack(
           children: [
             Align(
@@ -100,6 +93,8 @@ class _CreateState extends State<Endofmeet> {
               child: ElevatedButton(
                 onPressed: () {
                   // Add navigation to home screen here
+                   Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => Home()));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.purple.shade800,
