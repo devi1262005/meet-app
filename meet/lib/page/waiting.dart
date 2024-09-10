@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 // ignore: depend_on_referenced_packages
 import 'package:google_fonts/google_fonts.dart';
+import 'package:meet/page/videocall.dart';
 
 class   Waiting extends StatefulWidget {
   const Waiting({super.key});
@@ -59,7 +60,7 @@ class _CreateState extends State<Waiting> {
         ),
       ),
      body:Container(
-      color: const Color.fromARGB(255, 238, 204, 244), // Light purple background color
+       // Light purple background color
       child:  Align(
         alignment: Alignment.topCenter,
         child: Padding(
@@ -102,6 +103,8 @@ class _CreateState extends State<Waiting> {
               OutlinedButton(
                 onPressed: () {
                   // Add your onPressed functionality here
+                   Navigator.pushReplacement(context,
+                    MaterialPageRoute(builder: (context) => VideoCallPage()));
                 },
                 child: Text(
                   'Join meeting',
