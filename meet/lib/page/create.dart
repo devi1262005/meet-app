@@ -5,6 +5,8 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
+import 'package:meet/page/videocall.dart';
+
 class Create extends StatefulWidget {
   const Create({super.key});
 
@@ -183,11 +185,11 @@ class _CreateState extends State<Create> {
                       borderRadius: BorderRadius.circular(20),
                     ),
                     padding: EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Colors.purple.shade800,
                   ),
                   child: Text(
                     'Generate',
-                    style: TextStyle(fontSize: 14),
+                    style: TextStyle(fontSize: 14,color: Colors.white),
                   ),
                 ),
               ),
@@ -204,11 +206,14 @@ class _CreateState extends State<Create> {
               SizedBox(height: 30), // Space before the play button
               Center(
                 child: ElevatedButton(
-                  onPressed: (){},
+                  onPressed: (){
+                    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => VideoCallPage()));
+                  },
                   style: ElevatedButton.styleFrom(
                     shape: CircleBorder(),
                     padding: EdgeInsets.all(20),
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Colors.purple.shade800,
                   ),
                   child: Icon(Icons.play_arrow, size: 15, color: Colors.white),
                 ),
