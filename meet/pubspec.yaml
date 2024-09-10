@@ -9,18 +9,27 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  cloud_firestore: ^5.3.0
   cupertino_icons: ^1.0.8
   flutter_svg: ^2.0.10+1
   google_fonts: ^6.2.1
-  font_awesome_flutter: ^10.7.0
   flutter_native_splash: ^2.4.1
   animated_splash_screen: ^1.3.0
- 
+  firebase_core: ^3.4.0  # Updated to a compatible version with firebase_auth and cloud_firestore
+  firebase_auth: ^5.2.0   # Compatible with firebase_core ^3.4.0
+  google_sign_in: ^6.1.0
+  font_awesome_flutter: ^10.6.0
+  camera: ^0.11.0+2
+  speech_to_text: ^6.6.0
+  image_picker: ^1.0.0
+  fluttertoast: ^8.2.1
+  flutter_webrtc: ^0.9.16
+  http: ^1.2.2
+  path_provider: ^2.0.11
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
-    
   flutter_lints: ^4.0.0
 
 flutter:
