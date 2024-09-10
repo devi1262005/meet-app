@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart'; 
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -76,8 +76,6 @@ class _CreateState extends State<Create> {
     _agendaDetailsController.dispose();
     super.dispose();
   }
-
- 
 
   void _toggleEditable() {
     setState(() {
@@ -189,7 +187,7 @@ class _CreateState extends State<Create> {
                   ),
                   child: Text(
                     'Generate',
-                    style: TextStyle(fontSize: 14,color: Colors.white),
+                    style: TextStyle(fontSize: 14, color: Colors.white),
                   ),
                 ),
               ),
@@ -205,17 +203,22 @@ class _CreateState extends State<Create> {
               ),
               SizedBox(height: 30), // Space before the play button
               Center(
-                child: ElevatedButton(
-                  onPressed: (){
-                    Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => VideoCallPage()));
-                  },
-                  style: ElevatedButton.styleFrom(
-                    shape: CircleBorder(),
-                    padding: EdgeInsets.all(20),
-                    backgroundColor: Colors.purple.shade800,
-                  ),
-                  child: Icon(Icons.play_arrow, size: 15, color: Colors.white),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end, // Align button to the right
+                  children: [
+                    ElevatedButton(
+                      onPressed: () {
+                        Navigator.pushReplacement(
+                          context, MaterialPageRoute(builder: (context) => VideoCallPage()));
+                      },
+                      style: ElevatedButton.styleFrom(
+                        shape: CircleBorder(),
+                        padding: EdgeInsets.all(20),
+                        backgroundColor: Colors.purple.shade800,
+                      ),
+                      child: Icon(Icons.play_arrow, size: 15, color: Colors.white),
+                    ),
+                  ],
                 ),
               ),
             ],
