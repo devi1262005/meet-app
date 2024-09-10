@@ -8,10 +8,10 @@ void main() async {
   // Initialize Firebase
   await Firebase.initializeApp(
     options: const FirebaseOptions(
-      apiKey: "",
-      appId: "",
-      messagingSenderId: "",
-      projectId: "",
+      apiKey: "AIzaSyALJQG8b9mGUU-2aOSSXYred03q2550R0Q",
+      appId: "1:637344477928:android:90d7e3d782d0c7eaa24f5d",
+      messagingSenderId: "637344477928",
+      projectId: "meeting-ds",
     ),
   );
   FirebaseFirestore firestore = FirebaseFirestore.instance;
