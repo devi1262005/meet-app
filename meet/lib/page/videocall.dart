@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:meet/page/Home.dart';
 
 class VideoCallPage extends StatefulWidget {
   const VideoCallPage({super.key});
@@ -49,8 +48,7 @@ class _VideoCallPageState extends State<VideoCallPage> {
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                   Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => Home()));
+                Navigator.of(context).pop();
                 // Add logic to end the call
                 print('Call ended');
               },
@@ -78,7 +76,7 @@ class _VideoCallPageState extends State<VideoCallPage> {
           children: [
             CircleAvatar(
               radius: 25,
-              backgroundImage: AssetImage('assets/images/user_avatar.png'), // Replace with your image
+              backgroundImage: AssetImage('assets/images/avatar.jpeg'), // Replace with your image
             ),
             SizedBox(width: 10),
             Column(
@@ -192,8 +190,6 @@ class _VideoCallPageState extends State<VideoCallPage> {
                   onPressed: _endCall,
                   icon: Icons.call_end,
                   color: Colors.red,
-                  isEndCall: true,
-                  
                 ),
               ],
             ),
@@ -208,7 +204,7 @@ class _VideoCallPageState extends State<VideoCallPage> {
       width: 120,
       height: 120,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(10.0),
+        borderRadius: BorderRadius.circular(5.0),
         border: Border.all(color: Colors.white, width: 2.0),
         image: const DecorationImage(
           image: AssetImage('assets/images/avatar.jpeg'),
@@ -222,15 +218,21 @@ class _VideoCallPageState extends State<VideoCallPage> {
     required VoidCallback onPressed,
     required IconData icon,
     required Color color,
-    bool isEndCall = false,
   }) {
-    return FloatingActionButton(
-      onPressed: onPressed,
-      backgroundColor: isEndCall ? Colors.grey[800] : Colors.grey[800],
-      child: Icon(
-        icon,
-        color: color,
-        size: 28.0,
+    return Container(
+      width: 60,
+      height: 60,
+      decoration: BoxDecoration(
+        color: Colors.grey[800],
+        borderRadius: BorderRadius.circular(30.0), // No radius
+      ),
+      child: IconButton(
+        onPressed: onPressed,
+        icon: Icon(
+          icon,
+          color: color,
+          size: 28.0,
+        ),
       ),
     );
   }
