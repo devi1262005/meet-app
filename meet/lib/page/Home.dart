@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:meet/page/create.dart';
 import 'package:meet/page/csj.dart';
 import 'package:meet/page/settings.dart';
+import 'package:meet/page/signin.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -108,10 +109,7 @@ class _HomeState extends State<Home> {
                 leading: FaIcon(FontAwesomeIcons.gear, color: Colors.purple.shade800, size: 20),
                 title: Text('Settings'),
                 onTap: () {
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => Settings()),
-                  );
+                    
                 },
               ),
               ListTile(
@@ -138,6 +136,14 @@ class _HomeState extends State<Home> {
                 leading: FaIcon(FontAwesomeIcons.circleQuestion, size: 20, color: Colors.purple.shade800),
                 title: Text('Help'),
                 onTap: () {},
+              ),
+               ListTile(
+                leading: FaIcon(FontAwesomeIcons.floppyDisk, color: Colors.purple.shade800, size: 20),
+                title: Text('Sign Up'),
+                onTap: () {
+                  Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => Signup()));
+                },
               ),
               ListTile(
                 leading: FaIcon(FontAwesomeIcons.rightFromBracket, size: 20, color: Colors.purple.shade800),
