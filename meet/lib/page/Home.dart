@@ -115,7 +115,10 @@ class _HomeState extends State<Home> {
               ListTile(
                 leading: FaIcon(FontAwesomeIcons.user, color: Colors.purple.shade800),
                 title: Text('Profile'),
-                onTap: () {},
+                onTap: () {
+                  Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) =>ProfilePage()));
+                },
               ),
               ListTile(
                 leading: FaIcon(FontAwesomeIcons.floppyDisk, color: Colors.purple.shade800, size: 20),
