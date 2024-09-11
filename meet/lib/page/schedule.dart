@@ -186,7 +186,7 @@ class _CreateState extends State<Schedule> {
               // Date picker text field with icon
               _buildTextField(
                 controller: _dateController,
-                labelText: 'Date',
+                labelText: 'Select Date',
                 hintText: 'Pick Date',
                 icon: Icons.calendar_today,
                 readOnly: true,
@@ -197,7 +197,7 @@ class _CreateState extends State<Schedule> {
               // Time picker text field with icon
               _buildTextField(
                 controller: _timeController,
-                labelText: 'Time',
+                labelText: 'Select Time',
                 hintText: 'Pick Time',
                 icon: Icons.access_time,
                 readOnly: true,
