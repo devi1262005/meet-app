@@ -4,7 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:meet/page/create.dart';
 import 'package:meet/page/csj.dart';
 import 'package:meet/page/settings.dart';
-import 'package:meet/page/signin.dart';
+import 'package:meet/page/signup.dart';
+import 'package:meet/page/profile.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -106,50 +107,51 @@ class _HomeState extends State<Home> {
                 ),
               ),
               ListTile(
-                leading: FaIcon(FontAwesomeIcons.gear, color: Colors.purple.shade800, size: 20),
+                leading: FaIcon(FontAwesomeIcons.gear,
+                    color: Colors.purple.shade800, size: 20),
                 title: Text('Settings'),
                 onTap: () {
-                    
+                   Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Setting()));
+
                 },
               ),
               ListTile(
-                leading: FaIcon(FontAwesomeIcons.user, color: Colors.purple.shade800),
+                leading: FaIcon(FontAwesomeIcons.user,
+                    color: Colors.purple.shade800),
                 title: Text('Profile'),
                 onTap: () {
-                  Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) =>ProfilePage()));
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ProfilePage()));
                 },
               ),
               ListTile(
-                leading: FaIcon(FontAwesomeIcons.floppyDisk, color: Colors.purple.shade800, size: 20),
+                leading: FaIcon(FontAwesomeIcons.floppyDisk,
+                    color: Colors.purple.shade800, size: 20),
                 title: Text('Saved Agenda'),
                 onTap: () {},
               ),
               ListTile(
-                leading: FaIcon(FontAwesomeIcons.chartLine, size: 20, color: Colors.purple.shade800),
+                leading: FaIcon(FontAwesomeIcons.chartLine,
+                    size: 20, color: Colors.purple.shade800),
                 title: Text('Statistics'),
                 onTap: () {},
               ),
               ListTile(
-                leading: FaIcon(FontAwesomeIcons.circleExclamation, size: 20, color: Colors.purple.shade800),
+                leading: FaIcon(FontAwesomeIcons.circleExclamation,
+                    size: 20, color: Colors.purple.shade800),
                 title: Text('About'),
                 onTap: () {},
               ),
               ListTile(
-                leading: FaIcon(FontAwesomeIcons.circleQuestion, size: 20, color: Colors.purple.shade800),
+                leading: FaIcon(FontAwesomeIcons.circleQuestion,
+                    size: 20, color: Colors.purple.shade800),
                 title: Text('Help'),
                 onTap: () {},
               ),
-               ListTile(
-                leading: FaIcon(FontAwesomeIcons.floppyDisk, color: Colors.purple.shade800, size: 20),
-                title: Text('Sign Up'),
-                onTap: () {
-                  Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => Signup()));
-                },
-              ),
               ListTile(
-                leading: FaIcon(FontAwesomeIcons.rightFromBracket, size: 20, color: Colors.purple.shade800),
+                leading: FaIcon(FontAwesomeIcons.rightFromBracket,
+                    size: 20, color: Colors.purple.shade800),
                 title: Text('Logout'),
                 onTap: () {},
               ),
@@ -251,7 +253,8 @@ class _HomeState extends State<Home> {
                       width: double.infinity,
                       child: ElevatedButton(
                         onPressed: toggleMeetingDetails,
-                        child: Text(page, style: GoogleFonts.roboto(color: Colors.black)),
+                        child: Text(page,
+                            style: GoogleFonts.roboto(color: Colors.black)),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
@@ -325,7 +328,8 @@ class _HomeState extends State<Home> {
                         onPressed: () {
                           // Handle page click here
                         },
-                        child: Text(page, style: GoogleFonts.roboto(color: Colors.black)),
+                        child: Text(page,
+                            style: GoogleFonts.roboto(color: Colors.black)),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
