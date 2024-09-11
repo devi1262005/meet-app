@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:meet/page/agenda.dart';
 import 'package:meet/page/create.dart';
 import 'package:meet/page/csj.dart';
 import 'package:meet/page/settings.dart';
@@ -64,8 +65,8 @@ class _HomeState extends State<Home> {
         backgroundColor: Colors.white,
         shadowColor: Colors.black.withOpacity(0.3),
         title: Text(
-          'Cozy meet',
-          style: GoogleFonts.poppins(
+          'Cozy Meet',
+          style: GoogleFonts.museoModerno(
             fontSize: 24,
             color: Colors.purple.shade800,
             fontWeight: FontWeight.normal,
@@ -129,7 +130,11 @@ class _HomeState extends State<Home> {
                 leading: FaIcon(FontAwesomeIcons.floppyDisk,
                     color: Colors.purple.shade800, size: 20),
                 title: Text('Saved Agenda'),
-                onTap: () {},
+                onTap: () {
+                   Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => Agenda()));
+
+                },
               ),
               ListTile(
                 leading: FaIcon(FontAwesomeIcons.chartLine,
