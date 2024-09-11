@@ -45,7 +45,7 @@ class _JoinmeetState extends State<Joinmeet> {
         ),
         leading: IconButton(
           icon: FaIcon(
-            FontAwesomeIcons.angleLeft,
+            FontAwesomeIcons.arrowLeft,
             color: Colors.purple.shade800,
           ),
           onPressed: () {
