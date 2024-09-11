@@ -38,7 +38,7 @@ class _JoinmeetState extends State<Joinmeet> {
         title: Text(
           'Join Meeting',
           style: GoogleFonts.poppins(
-            fontSize: 24,
+            fontSize: 20,
             color: Colors.purple.shade800,
             fontWeight: FontWeight.normal,
           ),
