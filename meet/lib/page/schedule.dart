@@ -27,8 +27,8 @@ class _CreateState extends State<Schedule> {
   TimeOfDay _selectedTime = TimeOfDay.now();
 
   @override
-  void initState() {
-    super.initState();
+  void didChangeDependencies() {
+    super.didChangeDependencies();
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
       statusBarIconBrightness: Brightness.dark,
@@ -186,7 +186,7 @@ class _CreateState extends State<Schedule> {
               // Date picker text field with icon
               _buildTextField(
                 controller: _dateController,
-                labelText: 'Select Date',
+                labelText: 'Date',
                 hintText: 'Pick Date',
                 icon: Icons.calendar_today,
                 readOnly: true,
@@ -197,7 +197,7 @@ class _CreateState extends State<Schedule> {
               // Time picker text field with icon
               _buildTextField(
                 controller: _timeController,
-                labelText: 'Select Time',
+                labelText: 'Time',
                 hintText: 'Pick Time',
                 icon: Icons.access_time,
                 readOnly: true,
