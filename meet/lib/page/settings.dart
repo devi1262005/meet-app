@@ -37,7 +37,7 @@ class _CreateState extends State<Setting> {
         backgroundColor: Colors.white,
         shadowColor: Colors.black.withOpacity(0.1),
         title: Text(
-          'Setting',
+          'Settings',
           style: GoogleFonts.poppins(
             fontSize: 22,
             color: Colors.purple.shade800,
