@@ -47,7 +47,7 @@ class _CreateState extends State<Setting> {
         leading: IconButton(
           icon: FaIcon(
             FontAwesomeIcons.arrowLeft,
-            
+           
           ),
           onPressed: () {
             Navigator.pop(context);
