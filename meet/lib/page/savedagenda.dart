@@ -34,7 +34,7 @@ class _SavedAgendaState extends State<SavedAgenda> {
         title: Text(
           'Saved Agenda',
           style: GoogleFonts.poppins(
-            fontSize: 24,
+            fontSize: 20,
             color: Colors.purple.shade800,
             fontWeight: FontWeight.normal,
           ),
@@ -112,7 +112,7 @@ class DetailPage extends StatelessWidget {
         title: Text(
           'Item $itemIndex Details',
           style: GoogleFonts.poppins(
-            fontSize: 24,
+            fontSize: 20,
             color: Colors.purple.shade800,
           ),
         ),
