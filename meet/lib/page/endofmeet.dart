@@ -93,7 +93,7 @@ class _CreateState extends State<Endofmeet> {
               child: ElevatedButton(
                 onPressed: () {
                   // Add navigation to home screen here
-                   Navigator.pushReplacement(context,
+                   Navigator.push(context,
                     MaterialPageRoute(builder: (context) => Home()));
                 },
                 style: ElevatedButton.styleFrom(
