@@ -5,7 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 
-import 'package:meet/page/videocall.dart';
+//import 'package:meet/page/videocall.dart';
 
 class Create extends StatefulWidget {
   const Create({super.key});
@@ -97,11 +97,20 @@ class _CreateState extends State<Create> {
             height: 1.0,
           ),
         ),
+        leading: IconButton(
+          icon: FaIcon(
+            FontAwesomeIcons.arrowLeft,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
         title: Text(
           'Create Meeting',
           style: GoogleFonts.roboto(
             fontSize: 20,
-            color: Colors.black87,
+            color: Colors.purple.shade800,
           ),
         ),
       ),
@@ -208,8 +217,8 @@ class _CreateState extends State<Create> {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                          context, MaterialPageRoute(builder: (context) => VideoCallPage()));
+                        //Navigator.push(
+                        //  context, MaterialPageRoute(builder: (context) => VideoCallPage()));
                       },
                       style: ElevatedButton.styleFrom(
                         shape: CircleBorder(),
