@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:meet/page/create.dart';
 import 'package:meet/page/schedule.dart';
 import 'package:meet/page/joinmeeting.dart';
@@ -25,6 +26,15 @@ class _ToCreateState extends State<ToCreate> {
             color: Colors.black.withOpacity(0.2),
             height: 1.0,
           ),
+        ),
+        leading: IconButton(
+          icon: FaIcon(
+            FontAwesomeIcons.arrowLeft,
+            color: Colors.black,
+          ),
+          onPressed: () {
+            Navigator.pop(context);
+          },
         ),
       ),
       body: Stack(
@@ -126,7 +136,7 @@ class _ToCreateState extends State<ToCreate> {
                 // Schedule a Meeting Button
                 InkWell(
                   onTap: () {
-                    Navigator.push(
+                   Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => Schedule()),
                     ); // Action for "Schedule a Meeting"
