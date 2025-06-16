@@ -1,0 +1,42 @@
+name: flutter_webrtc_example
+description: Demonstrates how to use the WebRTC plugin with sample capture frame and screen select dialogs.
+version: 1.0.0
+publish_to: none
+
+environment:
+  sdk: '>=3.3.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # For iOS style icons
+  cupertino_icons: ^1.0.2
+
+  # Allows running tasks in the background.
+  flutter_background: ^1.0.0
+
+  # The flutter_webrtc plugin is included locally. Adjust the path as needed.
+  flutter_webrtc:
+    path: ../
+
+  # File system utilities (used in capture frame or similar samples).
+  path_provider: ^2.0.2
+
+  # Permissions handling (required for microphone, camera, etc.).
+  permission_handler: ^11.3.1
+
+  # SDP transformation for WebRTC signaling.
+  sdp_transform: ^0.3.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  pedantic: ^1.11.0
+
+flutter:
+  uses-material-design: true
+
+  # Uncomment and add asset paths if needed.
+  # assets:
+  #   - assets/images/

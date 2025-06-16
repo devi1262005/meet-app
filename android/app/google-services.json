@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "118467551383",
+    "project_id": "meet-main",
+    "storage_bucket": "meet-main.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:118467551383:android:86d718a940fae827c109d2",
+        "android_client_info": {
+          "package_name": "com.example.meet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "118467551383-hdj6c0hin01vkbjtko7feah89vrt843n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.meet",
+            "certificate_hash": "ed54b2b84f33f70b59347652e19df63b05d0b33a"
+          }
+        },
+        {
+          "client_id": "118467551383-nt6qvts6f47p3efer1cpn9pb2jeve3ro.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.meet",
+            "certificate_hash": "13b83389ed878ffdaae6501de9f64f4739684084"
+          }
+        },
+        {
+          "client_id": "118467551383-u1jjs6pahi14ktk4op487a5sl8p8fgb5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKacukqCXaRPltbNcqWBea6atN8a46aOo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "118467551383-u1jjs6pahi14ktk4op487a5sl8p8fgb5.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
